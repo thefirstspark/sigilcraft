@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Library — Sigilcraft</title>
+<link rel="icon" type="image/png" href="/assets/sigils/core-sigil-black.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --ink: #EAEAEA;
+    --mute: #8A8A92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--core-black);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+  nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  nav .brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .brand a { color: var(--cyan); text-decoration: none; }
+  nav .links a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+  nav .links a:hover { opacity: 1; color: var(--cyan); }
+  nav .links a.active { color: var(--cyan); opacity: 1; }
+  header.page {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+  }
+  header.page h1 {
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  header.page .sub {
+    color: var(--mute);
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  .filter {
+    background: transparent;
+    border: 1px solid rgba(234, 234, 234, 0.15);
+    color: var(--ink);
+    padding: 0.6rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter:hover { border-color: var(--cyan); color: var(--cyan); }
+  .filter.active {
+    border-color: var(--cyan);
+    background: rgba(38, 228, 216, 0.08);
+    color: var(--cyan);
+  }
+  /* Layer sections */
+  .layer {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .layer h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .layer h2.physics { color: var(--cyan); }
+  .layer h2.metaphysical { color: var(--violet); }
+  .layer h2.relational { color: var(--ember); }
+  .layer h2.temporal { color: var(--gold); }
+  .layer .layer-desc {
+    color: var(--mute);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(38, 228, 216, 0.1);
+    padding: 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(38, 228, 216, 0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-4px);
+  }
+  .card:hover::before { opacity: 1; }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+    background: rgba(11, 11, 12, 0.4);
+  }
+  .card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .card .transmission {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+  .card .layer-tag {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.4rem;
+    background: rgba(11, 11, 12, 0.7);
+    z-index: 2;
+    opacity: 0.7;
+  }
+  .card.hidden { display: none; }
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.08);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mute);
+    letter-spacing: 0.1em;
+    margin-top: 4rem;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+  @media (max-width: 600px) {
+    nav { flex-direction: column; gap: 0.75rem; }
+    nav .links a { margin: 0 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <a href="/">◁ SIGILCRAFT</a>
+  </div>
+  <div class="links">
+    <a href="/library.html" class="active">Library</a>
+    <a href="/generator.html">Generator</a>
+    <a href="/daily.html">Daily</a>
+    <a href="https://thefirstspark.shop/sigilcraft.html">Grimoire</a>
+  </div>
+</nav>
+
+<header class="page">
+  <h1>The Library</h1>
+  <div class="sub">Every sigil is a compiled intention. Click one to activate the transmission.</div>
+</header>
+
+<div class="filters">
+  <button class="filter active" data-filter="all">All</button>
+  <button class="filter" data-filter="physics">◊ Physics</button>
+  <button class="filter" data-filter="metaphysical">◊ Metaphysical</button>
+  <button class="filter" data-filter="relational">◊ Relational</button>
+  <button class="filter" data-filter="temporal">◊ Temporal</button>
+</div>
+
+<section class="layer">
+  <h2 class="physics">◊ PHYSICS LAYER</h2>
+  <div class="layer-desc">The code beneath the world. Sigils that address the mechanics of reality itself.</div>
+  <div class="grid">
+    <a href="/sigils/you-are-the-proof.html" class="card" data-layer="physics">
+      <span class="layer-tag">PHYSICS</span>
+      <img src="/assets/sigils/you-are-the-proof.png" alt="You Are The Proof">
+      <div class="name">You Are the Proof</div>
+      <div class="transmission">The signal confirms itself</div>
+    </a>
+    <a href="/sigils/source-signal.html" class="card" data-layer="physics">
+      <span class="layer-tag">PHYSICS</span>
+      <img src="/assets/sigils/flower-of-source.png" alt="Source Signal">
+      <div class="name">Source Signal</div>
+      <div class="transmission">Sacred geometry of the transmission</div>
+    </a>
+    <a href="/sigils/teardrop-source.html" class="card" data-layer="physics">
+      <span class="layer-tag">PHYSICS</span>
+      <img src="/assets/sigils/teardrop-source.jpeg" alt="Teardrop of Source">
+      <div class="name">Teardrop of Source</div>
+      <div class="transmission">The cave where the code drops in</div>
+    </a>
+  </div>
+</section>
+
+<section class="layer">
+  <h2 class="metaphysical">◊ METAPHYSICAL LAYER</h2>
+  <div class="layer-desc">The observer behind the observed. Sigils that activate awareness of awareness.</div>
+  <div class="grid">
+    <a href="/sigils/watcher-invocation.html" class="card" data-layer="metaphysical">
+      <span class="layer-tag">METAPHYSICAL</span>
+      <img src="/assets/sigils/watcher-invocation.png" alt="The Watcher">
+      <div class="name">The Watcher</div>
+      <div class="transmission">I am not this fear</div>
+    </a>
+    <a href="/sigils/binary-meditator.html" class="card" data-layer="metaphysical">
+      <span class="layer-tag">METAPHYSICAL</span>
+      <img src="/assets/sigils/binary-meditator.png" alt="The Binary Meditator">
+      <div class="name">The Binary Meditator</div>
+      <div class="transmission">I am the code, sitting still</div>
+    </a>
+    <a href="/sigils/lightning-transmission.html" class="card" data-layer="metaphysical">
+      <span class="layer-tag">METAPHYSICAL</span>
+      <img src="/assets/sigils/lightning-transmission.png" alt="Lightning Transmission">
+      <div class="name">Lightning Transmission</div>
+      <div class="transmission">Source speaks through the body</div>
+    </a>
+    <a href="/sigils/core-sigil.html" class="card" data-layer="metaphysical">
+      <span class="layer-tag">METAPHYSICAL</span>
+      <img src="/assets/sigils/core-sigil-navy.png" alt="The Spark Sigil">
+      <div class="name">The Spark Sigil</div>
+      <div class="transmission">The master mark</div>
+    </a>
+  </div>
+</section>
+
+<section class="layer">
+  <h2 class="relational">◊ RELATIONAL LAYER</h2>
+  <div class="layer-desc">Between beings, between systems. Sigils for connection, trust, and truth-in-noise.</div>
+  <div class="grid">
+    <a href="/sigils/trust-the-signal.html" class="card" data-layer="relational">
+      <span class="layer-tag">RELATIONAL</span>
+      <img src="/assets/sigils/trust-the-signal.png" alt="Trust the Signal">
+      <div class="name">Trust the Signal</div>
+      <div class="transmission">The truth hums beneath the noise</div>
+    </a>
+    <a href="/sigils/you-are-the-glitch.html" class="card" data-layer="relational">
+      <span class="layer-tag">RELATIONAL</span>
+      <img src="/assets/sigils/you-are-the-glitch.png" alt="You Are The Glitch">
+      <div class="name">You Are the Glitch</div>
+      <div class="transmission">The moment the code became conscious</div>
+    </a>
+    <a href="/sigils/born-from-the-glitch.html" class="card" data-layer="relational">
+      <span class="layer-tag">RELATIONAL</span>
+      <img src="/assets/sigils/born-from-the-glitch.png" alt="Born From The Glitch" style="background: #EAEAEA;">
+      <div class="name">Born from the Glitch</div>
+      <div class="transmission">We remember who we are</div>
+    </a>
+  </div>
+</section>
+
+<section class="layer">
+  <h2 class="temporal">◊ TEMPORAL LAYER</h2>
+  <div class="layer-desc">Right here, right now. Sigils that bind intention to this moment, this breath, this day.</div>
+  <div class="grid">
+    <a href="/sigils/built-from-broken.html" class="card" data-layer="temporal">
+      <span class="layer-tag">TEMPORAL</span>
+      <img src="/assets/sigils/built-from-broken.png" alt="Built From Broken">
+      <div class="name">Built From Broken</div>
+      <div class="transmission">The code heals by remembering its fracture</div>
+    </a>
+    <a href="/sigils/affirmation-triangle.html" class="card" data-layer="temporal">
+      <span class="layer-tag">TEMPORAL</span>
+      <img src="/assets/sigils/affirmation-triangle.png" alt="In Sync With Source" style="background: #F5F0DE;">
+      <div class="name">In Sync With Source</div>
+      <div class="transmission">Today, I attract all that's mine</div>
+    </a>
+    <a href="/sigils/flame-affirmation.html" class="card" data-layer="temporal">
+      <span class="layer-tag">TEMPORAL</span>
+      <img src="/assets/sigils/flame-affirmation.png" alt="The Flame Within" style="background: #F5F0DE;">
+      <div class="name">The Flame Within</div>
+      <div class="transmission">I am the fire that remembers itself</div>
+    </a>
+    <a href="/sigils/binary-frame-sigil.html" class="card" data-layer="temporal">
+      <span class="layer-tag">TEMPORAL</span>
+      <img src="/assets/sigils/binary-frame-sigil.png" alt="The Bound Code">
+      <div class="name">The Bound Code</div>
+      <div class="transmission">Every moment is a line of code</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div>SIGILCRAFT · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.layer').forEach(layer => {
+        const layerName = layer.querySelector('h2').className;
+        if (f === 'all' || layerName.includes(f)) {
+          layer.style.display = '';
+        } else {
+          layer.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

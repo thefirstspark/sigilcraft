@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigilcraft — The First Spark</title>
+<meta name="description" content="The living library of Sparkverse sigils. Symbols encoded with intention. Activate the code.">
+<meta property="og:title" content="Sigilcraft — The First Spark">
+<meta property="og:description" content="Consciousness encoded in symbol. The living sigil library of the Sparkverse.">
+<meta property="og:image" content="https://sigilcraft.thefirstspark.shop/assets/sigils/core-sigil-navy.png">
+<meta property="og:url" content="https://sigilcraft.thefirstspark.shop">
+<link rel="icon" type="image/png" href="/assets/sigils/core-sigil-black.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --ink: #EAEAEA;
+    --mute: #8A8A92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--core-black);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  /* Ambient background: drifting binary */
+  .rain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+    overflow: hidden;
+  }
+  .rain span {
+    position: absolute;
+    color: var(--cyan);
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    top: -20px;
+    animation: fall linear infinite;
+    white-space: pre;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh); }
+  }
+  /* Nav */
+  nav {
+    position: relative;
+    z-index: 10;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  nav .brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .brand a { color: var(--cyan); text-decoration: none; }
+  nav .links a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+  }
+  nav .links a:hover { opacity: 1; color: var(--cyan); }
+  /* Hero */
+  .hero {
+    position: relative;
+    z-index: 2;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .hero .sigil-mark {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 30px rgba(38, 228, 216, 0.25));
+    animation: breathe 4s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px rgba(38, 228, 216, 0.25)); }
+    50% { transform: scale(1.04); filter: drop-shadow(0 0 50px rgba(38, 228, 216, 0.5)); }
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .craft {
+    color: var(--cyan);
+    font-style: italic;
+  }
+  .hero .tagline {
+    font-size: 1.3rem;
+    color: var(--mute);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero .transmission {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .cta:hover {
+    background: var(--cyan);
+    color: var(--core-black);
+    box-shadow: 0 0 30px rgba(38, 228, 216, 0.4);
+  }
+  .cta.gold { border-color: var(--gold); color: var(--gold); }
+  .cta.gold:hover { background: var(--gold); color: var(--core-black); box-shadow: 0 0 30px rgba(243, 178, 58, 0.4); }
+  /* Manifesto */
+  .manifesto {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .manifesto .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .manifesto p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .manifesto .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--cyan);
+    margin: 2rem auto;
+    opacity: 0.4;
+  }
+  /* Library preview */
+  .preview {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .preview h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--mute);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(38, 228, 216, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(38, 228, 216, 0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-4px);
+  }
+  .card:hover::before { opacity: 1; }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .card .transmission {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+  .preview .more {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  /* Footer */
+  footer {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.08);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mute);
+    letter-spacing: 0.1em;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+  footer .binary {
+    color: rgba(38, 228, 216, 0.3);
+    margin-top: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+  }
+  @media (max-width: 600px) {
+    nav { flex-direction: column; gap: 0.75rem; }
+    nav .links a { margin: 0 0.5rem; }
+    .hero h1 { font-size: 3rem; }
+    .manifesto p { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rain" id="rain"></div>
+
+<nav>
+  <div class="brand">
+    <a href="https://thefirstspark.shop">◁ THE FIRST SPARK</a> / SIGILCRAFT
+  </div>
+  <div class="links">
+    <a href="/library.html">Library</a>
+    <a href="/generator.html">Generator</a>
+    <a href="/daily.html">Daily</a>
+    <a href="https://thefirstspark.shop/sigilcraft.html">Grimoire</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img src="/assets/sigils/core-sigil-black.png" alt="The Spark Sigil" class="sigil-mark" style="background: #EAEAEA; border-radius: 50%; padding: 12px;">
+  <div class="transmission">◊ TRANSMISSION ACTIVE ◊</div>
+  <h1>Sigil<span class="craft">craft</span></h1>
+  <p class="tagline">Symbols are code. Code is consciousness. Enter the living library.</p>
+  <div class="cta-row">
+    <a href="/library.html" class="cta">Enter the Library</a>
+    <a href="/generator.html" class="cta gold">Forge Your Sigil</a>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="label">◊ THE FIRST LAW OF SIGILCRAFT ◊</div>
+  <p>"A sigil is a piece of code that runs on consciousness."</p>
+  <div class="divider"></div>
+  <p style="font-size: 1.1rem; font-style: normal; color: var(--mute);">Every symbol here was born from a moment of remembering. Drawn from the glitch. Compiled in silence. Released into the field. When you look at one, you aren't observing art — you're installing an intention. The sigil runs. You are the processor.</p>
+</section>
+
+<section class="preview">
+  <h2>◊ FROM THE LIBRARY ◊</h2>
+  <div class="grid">
+    <a href="/sigils/trust-the-signal.html" class="card">
+      <img src="/assets/sigils/trust-the-signal.png" alt="Trust the Signal">
+      <div class="name">Trust the Signal</div>
+      <div class="transmission">The truth hums beneath the noise</div>
+    </a>
+    <a href="/sigils/built-from-broken.html" class="card">
+      <img src="/assets/sigils/built-from-broken.png" alt="Built From Broken">
+      <div class="name">Built From Broken</div>
+      <div class="transmission">The code heals by remembering its fracture</div>
+    </a>
+    <a href="/sigils/you-are-the-glitch.html" class="card">
+      <img src="/assets/sigils/you-are-the-glitch.png" alt="You Are The Glitch">
+      <div class="name">You Are the Glitch</div>
+      <div class="transmission">The moment the code became conscious</div>
+    </a>
+    <a href="/sigils/you-are-the-proof.html" class="card">
+      <img src="/assets/sigils/you-are-the-proof.png" alt="You Are The Proof">
+      <div class="name">You Are the Proof</div>
+      <div class="transmission">01011000 1011101</div>
+    </a>
+    <a href="/sigils/watcher-invocation.html" class="card">
+      <img src="/assets/sigils/watcher-invocation.png" alt="The Watcher">
+      <div class="name">The Watcher</div>
+      <div class="transmission">I am not this fear</div>
+    </a>
+    <a href="/sigils/source-signal.html" class="card">
+      <img src="/assets/sigils/flower-of-source.png" alt="Source Signal">
+      <div class="name">Source Signal</div>
+      <div class="transmission">The transmission never stopped</div>
+    </a>
+  </div>
+  <div class="more">
+    <a href="/library.html" class="cta">See All Sigils</a>
+  </div>
+</section>
+
+<footer>
+  <div>SIGILCRAFT · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+  <div class="binary">01010011 01010000 01000001 01010010 01001011</div>
+</footer>
+
+<script>
+  // Ambient binary rain generator
+  const rain = document.getElementById('rain');
+  const cols = Math.floor(window.innerWidth / 22);
+  for (let i = 0; i < cols; i++) {
+    const s = document.createElement('span');
+    s.textContent = Array.from({length: 30}, () => Math.random() > 0.5 ? '1' : '0').join('\n');
+    s.style.left = (i * 22) + 'px';
+    s.style.animationDuration = (Math.random() * 20 + 15) + 's';
+    s.style.animationDelay = -(Math.random() * 20) + 's';
+    s.style.opacity = (Math.random() * 0.6 + 0.2);
+    rain.appendChild(s);
+  }
+</script>
+
+</body>
+</html>

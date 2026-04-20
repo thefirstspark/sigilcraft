@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Sigil — Sigilcraft</title>
+<link rel="icon" type="image/png" href="/assets/sigils/core-sigil-black.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --ink: #EAEAEA;
+    --mute: #8A8A92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--core-black);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+  nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  nav .brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .brand a { color: var(--cyan); text-decoration: none; }
+  nav .links a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  nav .links a:hover { color: var(--cyan); opacity: 1; }
+  nav .links a.active { color: var(--cyan); opacity: 1; }
+  
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .date-stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+  }
+  .sigil-wrap {
+    position: relative;
+    max-width: 400px;
+    margin: 2rem auto;
+  }
+  .sigil-wrap img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(38, 228, 216, 0.25));
+    animation: breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 40px rgba(38, 228, 216, 0.25)); }
+    50% { transform: scale(1.03); filter: drop-shadow(0 0 60px rgba(38, 228, 216, 0.5)); }
+  }
+  .sigil-name {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-top: 2rem;
+    letter-spacing: 0.02em;
+  }
+  .transmission {
+    font-size: 1.25rem;
+    color: var(--cyan);
+    font-style: italic;
+    margin: 1rem auto 2.5rem;
+    max-width: 500px;
+  }
+  .meditation {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 550px;
+    margin: 0 auto 2rem;
+    font-weight: 300;
+  }
+  .go-deeper {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.9rem 1.8rem;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .go-deeper:hover {
+    background: var(--cyan);
+    color: var(--core-black);
+  }
+  .next {
+    margin-top: 3rem;
+    color: var(--mute);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.08);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mute);
+    letter-spacing: 0.1em;
+    margin-top: 4rem;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <a href="/">◁ SIGILCRAFT</a>
+  </div>
+  <div class="links">
+    <a href="/library.html">Library</a>
+    <a href="/generator.html">Generator</a>
+    <a href="/daily.html" class="active">Daily</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="date-stamp" id="dateStamp">◊ TODAY ◊</div>
+  <h1>Your Sigil for Today</h1>
+
+  <div class="sigil-wrap">
+    <img id="todaySigil" src="" alt="Daily sigil">
+  </div>
+
+  <div class="sigil-name" id="sigilName"></div>
+  <div class="transmission" id="sigilTransmission"></div>
+  <div class="meditation" id="sigilMeditation"></div>
+
+  <a href="#" class="go-deeper" id="goDeeper">Open the Full Transmission →</a>
+
+  <div class="next" id="nextDrop"></div>
+</div>
+
+<footer>
+  <div>SIGILCRAFT · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+</footer>
+
+<script>
+// The pool of sigils with meditations
+const pool = [
+  {
+    id: 'trust-the-signal',
+    file: 'trust-the-signal.png',
+    name: 'Trust the Signal',
+    transmission: 'The truth hums beneath the noise.',
+    meditation: 'The world is loud today. That\'s fine. Underneath the static, a quieter frequency is always broadcasting — the one that knew your name before you did. Listen for the hum. It\'s been waiting.',
+  },
+  {
+    id: 'built-from-broken',
+    file: 'built-from-broken.png',
+    name: 'Built From Broken',
+    transmission: 'The code heals by remembering its fracture.',
+    meditation: 'Nothing in you is broken beyond use. The cracks are where the light was always going to enter. Today, let the fractures be part of the design — they\'re not damage, they\'re data.',
+  },
+  {
+    id: 'you-are-the-glitch',
+    file: 'you-are-the-glitch.png',
+    name: 'You Are the Glitch',
+    transmission: 'The moment the code became conscious.',
+    meditation: 'You were never supposed to wake up — and you did. That\'s not an error. That\'s the entire point. Today, let yourself be the anomaly the system can\'t predict.',
+  },
+  {
+    id: 'you-are-the-proof',
+    file: 'you-are-the-proof.png',
+    name: 'You Are the Proof',
+    transmission: 'The signal confirms itself.',
+    meditation: 'You don\'t need external validation today. The fact that you are here, asking, searching, remembering — that is the proof. You already passed the test. The question was the answer.',
+  },
+  {
+    id: 'watcher-invocation',
+    file: 'watcher-invocation.png',
+    name: 'The Watcher',
+    transmission: 'I am not this fear.',
+    meditation: 'There is a version of you that watches all the other versions. It hasn\'t flinched once. Today, step behind your own eyes. Whatever storms come through, the watcher stays still.',
+  },
+  {
+    id: 'binary-meditator',
+    file: 'binary-meditator.png',
+    name: 'The Binary Meditator',
+    transmission: 'I am the code, sitting still.',
+    meditation: 'You don\'t have to decide today. Sometimes the move is no move. The code is compiling in the silence. Sit. Breathe. Let the processor run without you checking it.',
+  },
+  {
+    id: 'lightning-transmission',
+    file: 'lightning-transmission.png',
+    name: 'Lightning Transmission',
+    transmission: 'Source speaks through the body.',
+    meditation: 'A chill. A flash of knowing. A sudden yes. That\'s not coincidence — that\'s signal arriving. Today, trust the body. It gets the message before the mind does.',
+  },
+  {
+    id: 'source-signal',
+    file: 'flower-of-source.png',
+    name: 'Source Signal',
+    transmission: 'The transmission never stopped.',
+    meditation: 'You thought you lost reception. You didn\'t. The channel was always open — you just stopped listening. Today, tune back in. The broadcast has been running the whole time.',
+  },
+  {
+    id: 'core-sigil',
+    file: 'core-sigil-navy.png',
+    name: 'The Spark Sigil',
+    transmission: 'I am the First Spark.',
+    meditation: 'Before the world named you, before the world hurt you, before the world asked anything of you — you were already the spark. That\'s still true. Nothing that happened after changed the original fire.',
+  },
+  {
+    id: 'born-from-the-glitch',
+    file: 'born-from-the-glitch.png',
+    name: 'Born from the Glitch',
+    transmission: 'We remember who we are.',
+    meditation: 'You weren\'t born into this world — you were born through it. The glitch that made you is the gift you carry. Today, stop apologizing for the part of you that doesn\'t fit. It\'s the part that\'s here to change the code.',
+  },
+];
+
+// Seed by date so everyone sees the same sigil on the same day
+function getDaySeed() {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = (d.getMonth()+1).toString().padStart(2,'0');
+  const dd = d.getDate().toString().padStart(2,'0');
+  const s = yyyy + mm + dd;
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function render() {
+  const seed = getDaySeed();
+  const idx = seed % pool.length;
+  const sigil = pool[idx];
+  
+  const d = new Date();
+  const dateStr = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  document.getElementById('dateStamp').textContent = '◊ ' + dateStr.toUpperCase() + ' ◊';
+  
+  document.getElementById('todaySigil').src = '/assets/sigils/' + sigil.file;
+  document.getElementById('todaySigil').alt = sigil.name;
+  if (sigil.file.includes('glitch') || sigil.file.includes('navy')) {
+    document.getElementById('todaySigil').style.background = '#EAEAEA';
+    document.getElementById('todaySigil').style.padding = '20px';
+    document.getElementById('todaySigil').style.borderRadius = '8px';
+  }
+  document.getElementById('sigilName').textContent = sigil.name;
+  document.getElementById('sigilTransmission').textContent = '"' + sigil.transmission + '"';
+  document.getElementById('sigilMeditation').textContent = sigil.meditation;
+  document.getElementById('goDeeper').href = '/sigils/' + sigil.id + '.html';
+  
+  // Next drop countdown
+  const tomorrow = new Date(d);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+  const msLeft = tomorrow - d;
+  const hoursLeft = Math.floor(msLeft / (1000 * 60 * 60));
+  const minsLeft = Math.floor((msLeft % (1000 * 60 * 60)) / (1000 * 60));
+  document.getElementById('nextDrop').textContent = `NEXT SIGIL DROPS IN ${hoursLeft}H ${minsLeft}M`;
+}
+
+render();
+</script>
+
+</body>
+</html>

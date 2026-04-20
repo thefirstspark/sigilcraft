@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Generator — Sigilcraft</title>
+<meta name="description" content="Forge your own sigil. Type an intention. Receive a glyph encoded with your frequency.">
+<link rel="icon" type="image/png" href="/assets/sigils/core-sigil-black.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --ink: #EAEAEA;
+    --mute: #8A8A92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--core-black);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+  nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  nav .brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .brand a { color: var(--cyan); text-decoration: none; }
+  nav .links a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  nav .links a:hover { color: var(--cyan); opacity: 1; }
+  nav .links a.active { color: var(--cyan); opacity: 1; }
+  
+  .hero {
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .hero .sub {
+    color: var(--mute);
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .forge {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .forge { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  
+  .input-side .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .input-side input, .input-side textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(38, 228, 216, 0.25);
+    color: var(--ink);
+    padding: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.3s;
+  }
+  .input-side input:focus, .input-side textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+  .input-side textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-style: italic;
+  }
+  .forge-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 1.1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+  }
+  .forge-btn:hover {
+    background: var(--gold);
+    color: var(--core-black);
+    box-shadow: 0 0 40px rgba(243, 178, 58, 0.4);
+  }
+  .forge-btn:disabled { opacity: 0.5; cursor: default; }
+  
+  .sigil-out {
+    text-align: center;
+    padding: 1rem;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(38, 228, 216, 0.2);
+    position: relative;
+  }
+  .sigil-out.empty::before {
+    content: '◊ YOUR SIGIL WILL APPEAR HERE ◊';
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--mute);
+    text-transform: uppercase;
+  }
+  #sigilCanvas {
+    max-width: 100%;
+    display: none;
+  }
+  .sigil-out.rendered #sigilCanvas { display: block; }
+  .sigil-out.rendered::before { display: none; }
+  
+  .meta {
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--mute);
+    text-transform: uppercase;
+    display: none;
+  }
+  .sigil-out.rendered + .meta { display: block; }
+  
+  .actions {
+    display: none;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .sigil-out.rendered ~ .actions { display: flex; }
+  .action {
+    background: transparent;
+    border: 1px solid rgba(38, 228, 216, 0.3);
+    color: var(--cyan);
+    padding: 0.7rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .action:hover { background: rgba(38, 228, 216, 0.08); }
+  
+  .note {
+    max-width: 700px;
+    margin: 3rem auto 0;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.1);
+    color: var(--mute);
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+  
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.08);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mute);
+    letter-spacing: 0.1em;
+    margin-top: 4rem;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <a href="/">◁ SIGILCRAFT</a>
+  </div>
+  <div class="links">
+    <a href="/library.html">Library</a>
+    <a href="/generator.html" class="active">Generator</a>
+    <a href="/daily.html">Daily</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>The Forge</h1>
+  <p class="sub">Speak your intention. The code will compile a glyph only you could summon.</p>
+</div>
+
+<div class="forge">
+  <div class="input-side">
+    <div class="label">◊ YOUR NAME (OR CALLSIGN)</div>
+    <input type="text" id="nameInput" placeholder="Kate / Player One / whoever you are today" maxlength="40">
+    
+    <div class="label">◊ YOUR INTENTION</div>
+    <textarea id="intentionInput" placeholder="What are you calling in? (e.g. 'I trust my next move' or 'I release what isn't mine')" maxlength="140"></textarea>
+    
+    <button class="forge-btn" id="forgeBtn">⚡ Forge My Sigil</button>
+  </div>
+  
+  <div>
+    <div class="sigil-out empty" id="sigilOut">
+      <canvas id="sigilCanvas" width="600" height="600"></canvas>
+    </div>
+    <div class="meta" id="sigilMeta"></div>
+    <div class="actions">
+      <a href="#" class="action" id="downloadBtn">Download</a>
+      <button class="action" id="reforgeBtn">Re-forge</button>
+      <button class="action" id="shareBtn">Copy Transmission</button>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  Each sigil is a cryptographic echo of your intention. The same words always compile to the same glyph — because the code remembers.
+</div>
+
+<footer>
+  <div>SIGILCRAFT · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   SIGIL GENERATOR
+   Deterministic: same inputs → same sigil (identity + intention)
+   Uses TFS visual DNA: triangle, waves, infinity, binary, circle
+   ------------------------------------------------------------------ */
+
+// Simple seeded hash (FNV-1a style)
+function hashString(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = (h * 16777619) >>> 0;
+  }
+  return h;
+}
+
+// Mulberry32 PRNG from seed
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = seed;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function drawSigil(name, intention) {
+  const canvas = document.getElementById('sigilCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+  
+  // Seed from the combined input
+  const seed = hashString((name + '::' + intention).toLowerCase().trim());
+  const rand = mulberry32(seed);
+  
+  // Clear with deep black
+  ctx.fillStyle = '#0B0B0C';
+  ctx.fillRect(0, 0, W, H);
+  
+  // Palette selection — deterministic by seed
+  const palettes = [
+    { main: '#26E4D8', accent: '#F3B23A' }, // cyan+gold
+    { main: '#6B4DF2', accent: '#26E4D8' }, // violet+cyan
+    { main: '#FF6A3D', accent: '#F3B23A' }, // ember+gold
+    { main: '#26E4D8', accent: '#6B4DF2' }, // cyan+violet
+  ];
+  const pal = palettes[Math.floor(rand() * palettes.length)];
+  
+  // --- Background ambient binary (subtle) ---
+  ctx.font = '12px monospace';
+  ctx.fillStyle = pal.main + '22';
+  for (let i = 0; i < 80; i++) {
+    const x = rand() * W;
+    const y = rand() * H;
+    ctx.fillText(rand() > 0.5 ? '1' : '0', x, y);
+  }
+  
+  // --- Outer ring ---
+  ctx.strokeStyle = pal.main + '44';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 260, 0, Math.PI * 2);
+  ctx.stroke();
+  
+  // --- Sacred geometry layer: rotating polygon based on seed ---
+  const sides = 3 + Math.floor(rand() * 6); // 3-8 sides
+  const polyR = 180 + rand() * 40;
+  const polyRot = rand() * Math.PI * 2;
+  ctx.strokeStyle = pal.accent + '55';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  for (let i = 0; i <= sides; i++) {
+    const a = polyRot + (i / sides) * Math.PI * 2;
+    const x = cx + Math.cos(a) * polyR;
+    const y = cy + Math.sin(a) * polyR;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  
+  // --- The Triangle (TFS core) ---
+  const triH = 200;
+  const triY = cy - 60;
+  ctx.strokeStyle = pal.main;
+  ctx.lineWidth = 4;
+  ctx.shadowColor = pal.main;
+  ctx.shadowBlur = 20;
+  ctx.beginPath();
+  ctx.moveTo(cx, triY - triH/2);
+  ctx.lineTo(cx - triH/1.8, triY + triH/2);
+  ctx.lineTo(cx + triH/1.8, triY + triH/2);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  
+  // --- Dot in triangle (position varies by seed) ---
+  const dotY = triY - 20 + rand() * 40;
+  ctx.fillStyle = pal.accent;
+  ctx.shadowColor = pal.accent;
+  ctx.shadowBlur = 15;
+  ctx.beginPath();
+  ctx.arc(cx, dotY, 8, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  // --- Waves (frequency lines) — count varies by seed ---
+  const waveCount = 2 + Math.floor(rand() * 3);
+  ctx.strokeStyle = pal.main;
+  ctx.lineWidth = 2;
+  for (let i = 0; i < waveCount; i++) {
+    const wy = triY + 10 + i * 22;
+    const wspread = 70 + i * 18;
+    ctx.beginPath();
+    ctx.arc(cx, wy + 40, wspread, Math.PI, Math.PI * 2);
+    ctx.stroke();
+  }
+  
+  // --- Infinity loop at bottom ---
+  const infY = triY + 140;
+  const infR = 30;
+  ctx.strokeStyle = pal.main;
+  ctx.lineWidth = 3;
+  ctx.shadowColor = pal.main;
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+  for (let t = 0; t <= Math.PI * 2; t += 0.02) {
+    const scale = 2 / (3 - Math.cos(2 * t));
+    const x = cx + infR * 2 * scale * Math.cos(t);
+    const y = infY + infR * scale * Math.sin(2 * t);
+    if (t === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  
+  // --- Intention-derived glyph lines (the unique part) ---
+  // Walk the intention character codes as path coordinates
+  const text = (name + intention).toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (text.length > 2) {
+    ctx.strokeStyle = pal.accent + 'AA';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let i = 0; i < text.length; i++) {
+      const code = text.charCodeAt(i);
+      const angle = (code * 137.5) * Math.PI / 180; // golden angle
+      const radius = 40 + (code % 60);
+      const x = cx + Math.cos(angle) * radius;
+      const y = triY + 20 + Math.sin(angle) * radius * 0.7;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    
+    // Mark endpoints
+    for (let i = 0; i < text.length; i++) {
+      const code = text.charCodeAt(i);
+      const angle = (code * 137.5) * Math.PI / 180;
+      const radius = 40 + (code % 60);
+      const x = cx + Math.cos(angle) * radius;
+      const y = triY + 20 + Math.sin(angle) * radius * 0.7;
+      ctx.fillStyle = i === 0 || i === text.length - 1 ? pal.accent : pal.main;
+      ctx.beginPath();
+      ctx.arc(x, y, i === 0 || i === text.length - 1 ? 4 : 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  
+  // --- Binary signature at bottom ---
+  const sig = seed.toString(2).padStart(32, '0').slice(0, 16);
+  ctx.font = 'bold 14px "Space Mono", monospace';
+  ctx.fillStyle = pal.main + 'BB';
+  ctx.textAlign = 'center';
+  ctx.fillText(sig, cx, H - 40);
+  
+  // --- Sigil ID ---
+  const sigId = seed.toString(36).toUpperCase().slice(0, 8);
+  ctx.font = '10px "Space Mono", monospace';
+  ctx.fillStyle = pal.accent + '99';
+  ctx.fillText('SIGIL::' + sigId, cx, H - 20);
+  
+  return { id: sigId, seed, palette: pal };
+}
+
+let currentSigil = null;
+
+document.getElementById('forgeBtn').addEventListener('click', forge);
+
+function forge() {
+  const name = document.getElementById('nameInput').value.trim();
+  const intent = document.getElementById('intentionInput').value.trim();
+  if (!name || !intent) {
+    alert('Speak your name and your intention before the forge can compile.');
+    return;
+  }
+  currentSigil = drawSigil(name, intent);
+  document.getElementById('sigilOut').classList.remove('empty');
+  document.getElementById('sigilOut').classList.add('rendered');
+  document.getElementById('sigilMeta').innerHTML = 
+    `◊ SIGIL ID :: ${currentSigil.id}  ·  FORGED FOR ${name.toUpperCase()} ◊`;
+}
+
+document.getElementById('downloadBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (!currentSigil) return;
+  const canvas = document.getElementById('sigilCanvas');
+  const link = document.createElement('a');
+  link.download = `sigil-${currentSigil.id}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+
+document.getElementById('reforgeBtn').addEventListener('click', () => {
+  // Same input = same sigil, but animate a "re-compile" visual
+  forge();
+});
+
+document.getElementById('shareBtn').addEventListener('click', () => {
+  if (!currentSigil) return;
+  const name = document.getElementById('nameInput').value.trim();
+  const intent = document.getElementById('intentionInput').value.trim();
+  const text = `⚡ I forged my sigil in the Sparkverse.\n\nIntention: "${intent}"\nSigil ID: ${currentSigil.id}\n\nForge yours → sigilcraft.thefirstspark.shop/generator.html`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('shareBtn');
+    const original = btn.textContent;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.textContent = original; }, 2000);
+  });
+});
+
+// Pressing Enter in the intention textarea forges (Cmd/Ctrl+Enter)
+document.getElementById('intentionInput').addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') forge();
+});
+</script>
+
+</body>
+</html>

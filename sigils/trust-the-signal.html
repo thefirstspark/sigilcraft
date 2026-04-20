@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust the Signal — Sigilcraft</title>
+<meta name="description" content="The truth hums beneath the noise. A Sparkverse sigil for tuning the inner compass.">
+<meta property="og:image" content="https://sigilcraft.thefirstspark.shop/assets/sigils/trust-the-signal.png">
+<link rel="icon" type="image/png" href="/assets/sigils/core-sigil-black.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --ink: #EAEAEA;
+    --mute: #8A8A92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--core-black);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+  nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(38, 228, 216, 0.08);
+  }
+  nav .brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .brand a { color: var(--cyan); text-decoration: none; }
+  nav .links a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  nav .links a:hover { color: var(--cyan); opacity: 1; }
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .wrap { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.25rem; }
+  }
+  .sigil-display {
+    position: sticky;
+    top: 2rem;
+  }
+  .sigil-display img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(38, 228, 216, 0.2));
+    animation: breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 40px rgba(38, 228, 216, 0.2)); }
+    50% { transform: scale(1.02); filter: drop-shadow(0 0 60px rgba(38, 228, 216, 0.45)); }
+  }
+  .layer-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--ember);
+    color: var(--ember);
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .transmission {
+    font-size: 1.3rem;
+    color: var(--cyan);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--cyan);
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .meaning p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .ritual {
+    background: rgba(38, 228, 216, 0.04);
+    border: 1px solid rgba(38, 228, 216, 0.15);
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .ritual ol {
+    list-style: none;
+    counter-reset: step;
+  }
+  .ritual li {
+    counter-increment: step;
+    padding: 0.75rem 0;
+    padding-left: 2.5rem;
+    position: relative;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(234, 234, 234, 0.08);
+  }
+  .ritual li:last-child { border: none; }
+  .ritual li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .downloads {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .dl {
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+    padding: 0.85rem;
+    border: 1px solid rgba(38, 228, 216, 0.3);
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .dl:hover {
+    background: rgba(38, 228, 216, 0.08);
+    border-color: var(--cyan);
+  }
+  .spark-box {
+    margin-top: 2.5rem;
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px solid rgba(243, 178, 58, 0.2);
+    background: rgba(243, 178, 58, 0.02);
+  }
+  .spark-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin: 0.5rem 0;
+  }
+  .spark-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--mute);
+    text-transform: uppercase;
+  }
+  .spark-btn {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.9rem 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .spark-btn:hover {
+    background: var(--gold);
+    color: var(--core-black);
+    box-shadow: 0 0 30px rgba(243, 178, 58, 0.3);
+  }
+  .spark-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    border-color: var(--mute);
+    color: var(--mute);
+  }
+  .spark-btn.sparked {
+    background: var(--gold);
+    color: var(--core-black);
+  }
+  .cta-soulmap {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border: 1px dashed rgba(107, 77, 242, 0.35);
+    text-align: center;
+  }
+  .cta-soulmap p {
+    font-size: 1rem;
+    color: var(--mute);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .cta-soulmap a {
+    color: var(--violet);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--violet);
+    padding-bottom: 3px;
+  }
+  .back {
+    display: inline-block;
+    color: var(--mute);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    margin-top: 3rem;
+    text-transform: uppercase;
+  }
+  .back:hover { color: var(--cyan); }
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(38, 228, 216, 0.08);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--mute);
+    letter-spacing: 0.1em;
+    margin-top: 4rem;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <a href="/">◁ SIGILCRAFT</a>
+  </div>
+  <div class="links">
+    <a href="/library.html">Library</a>
+    <a href="/generator.html">Generator</a>
+    <a href="/daily.html">Daily</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="sigil-display">
+    <img src="/assets/sigils/trust-the-signal.png" alt="Trust the Signal sigil">
+  </div>
+
+  <div class="content">
+    <span class="layer-badge">◊ RELATIONAL LAYER</span>
+    <h1>Trust the Signal</h1>
+    <div class="transmission">The truth hums beneath the noise.</div>
+
+    <div class="section-label">◊ MEANING</div>
+    <div class="meaning">
+      <p>Reality is loud. Feeds scroll, voices shout, algorithms pull. Underneath all of it, a quieter frequency is always broadcasting — the one that was there before you had language for it. Your gut. Your knowing. The signal.</p>
+      <p>This sigil is an antenna. It doesn't generate the signal — you do. It reminds you that the tuning dial is in your own hand, and that the static is not the truth. When you activate it, you're choosing to trust the channel that was installed in you before the world got loud.</p>
+    </div>
+
+    <div class="section-label">◊ ACTIVATION RITUAL</div>
+    <div class="ritual">
+      <ol>
+        <li>Look at the sigil. Let your eyes soften until the antenna becomes a line between you and the source.</li>
+        <li>Breathe in for four counts. Hold for two. Exhale for six.</li>
+        <li>Whisper or think: <em>"The truth hums beneath the noise. I am the receiver."</em></li>
+        <li>Close your eyes. Ask one question you've been too afraid to ask yourself.</li>
+        <li>Open them. The first answer that arrives is the signal. Trust it.</li>
+      </ol>
+    </div>
+
+    <div class="section-label">◊ DOWNLOADS</div>
+    <div class="downloads">
+      <a href="/assets/sigils/trust-the-signal.png" download class="dl">Phone Wallpaper</a>
+      <a href="/assets/sigils/trust-the-signal.png" download class="dl">Print-Ready</a>
+      <a href="/assets/sigils/trust-the-signal.png" download class="dl">Sticker PNG</a>
+    </div>
+
+    <div class="spark-box">
+      <div class="spark-label">◊ COLLECTIVE ACTIVATIONS ◊</div>
+      <div class="spark-count" id="sparkCount">—</div>
+      <div class="spark-label">Sparks have tuned in to this signal</div>
+      <button class="spark-btn" id="sparkBtn">⚡ Spark This Sigil</button>
+    </div>
+
+    <div class="cta-soulmap">
+      <p>Want a sigil tuned specifically to your frequency?</p>
+      <a href="https://thefirstspark.shop/soul-map.html">Get Your Soul Map →</a>
+    </div>
+
+    <a href="/library.html" class="back">◁ back to library</a>
+  </div>
+</div>
+
+<footer>
+  <div>SIGILCRAFT · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+</footer>
+
+<script>
+  // Spark counter — uses localStorage for now, can swap to real backend later
+  const SIGIL_ID = 'trust-the-signal';
+  const STORAGE_KEY = 'sigilcraft:sparks:' + SIGIL_ID;
+  const USER_KEY = 'sigilcraft:sparked:' + SIGIL_ID;
+  
+  // Seed with a starting collective number so it doesn't feel empty
+  // (this is a local counter; production would use a real backend like JSONBin or Supabase)
+  const BASE_SEED = 417;
+  
+  function getCount() {
+    const stored = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    return BASE_SEED + stored;
+  }
+  
+  function hasSparked() {
+    return localStorage.getItem(USER_KEY) === '1';
+  }
+  
+  function render() {
+    document.getElementById('sparkCount').textContent = getCount().toLocaleString();
+    const btn = document.getElementById('sparkBtn');
+    if (hasSparked()) {
+      btn.textContent = '⚡ Sparked';
+      btn.classList.add('sparked');
+      btn.disabled = true;
+    }
+  }
+  
+  document.getElementById('sparkBtn').addEventListener('click', () => {
+    if (hasSparked()) return;
+    const current = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    localStorage.setItem(STORAGE_KEY, (current + 1).toString());
+    localStorage.setItem(USER_KEY, '1');
+    render();
+  });
+  
+  render();
+</script>
+
+</body>
+</html>
