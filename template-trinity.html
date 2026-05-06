@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{CUSTOMER_NAME}}'s Sigil Trinity — Forged by The First Spark</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --gold-deep: #D4AF37;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --bone: #FFFFFF;
+    --ash: #555;
+    --grid: rgba(11, 11, 12, 0.05);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* WHITE BACKGROUND for printability — KJP requirement */
+  body {
+    background: var(--bone);
+    color: var(--core-black);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.6;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HEADER */
+  header {
+    padding: 3rem 0 2rem;
+    border-bottom: 2px solid var(--core-black);
+    margin-bottom: 4rem;
+  }
+
+  .brand-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+
+  .header-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+  }
+
+  h1 em { color: var(--gold-deep); font-style: italic; }
+
+  .meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ash);
+    letter-spacing: 0.1em;
+    text-align: right;
+  }
+
+  /* OPENING */
+  .opening {
+    margin-bottom: 5rem;
+    max-width: 720px;
+  }
+
+  .opening p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--core-black);
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--ember);
+    margin: 2rem 0;
+  }
+
+  /* SIGIL DISPLAY */
+  .sigil-section {
+    padding: 4rem 0;
+    border-top: 1px solid rgba(11, 11, 12, 0.15);
+    page-break-after: always;
+  }
+
+  .sigil-section:last-child { border-bottom: 1px solid rgba(11, 11, 12, 0.15); }
+
+  .sigil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 800px) {
+    .sigil-grid { grid-template-columns: 1fr; }
+  }
+
+  .sigil-art {
+    aspect-ratio: 1;
+    background: var(--bone);
+    border: 1px solid rgba(11, 11, 12, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .sigil-art::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(11, 11, 12, 0.1);
+  }
+
+  .sigil-art svg {
+    width: 80%;
+    height: 80%;
+  }
+
+  .sigil-info .num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+
+  .sigil-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .sigil-info h2 em { color: var(--gold-deep); font-style: italic; }
+
+  .intention-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--ash);
+    border-left: 3px solid var(--ember);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    line-height: 1.5;
+  }
+
+  .activation {
+    font-size: 0.95rem;
+    color: var(--core-black);
+    margin-top: 1.5rem;
+  }
+
+  .activation strong {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* DOWNLOADS */
+  .downloads {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .download-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    background: var(--core-black);
+    color: var(--bone);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    transition: all 0.2s;
+  }
+
+  .download-btn:hover {
+    background: var(--ember);
+  }
+
+  /* RITUAL GUIDE */
+  .ritual {
+    background: var(--core-black);
+    color: var(--bone);
+    padding: 4rem 3rem;
+    margin: 5rem 0;
+  }
+
+  .ritual .mark {
+    font-family: 'Cinzel', serif;
+    color: var(--ember);
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .ritual h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .ritual h2 em { font-style: italic; }
+
+  .ritual ol {
+    margin-left: 1.5rem;
+  }
+
+  .ritual ol li {
+    margin-bottom: 1.2rem;
+    padding-left: 0.5rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .ritual ol li::marker {
+    color: var(--ember);
+    font-family: 'Cinzel', serif;
+  }
+
+  .ritual p { color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 2px solid var(--core-black);
+    margin-top: 4rem;
+  }
+
+  footer p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ash);
+  }
+
+  footer a {
+    color: var(--ember);
+    text-decoration: none;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; }
+    .ritual, header { page-break-after: always; }
+    .downloads { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand-mark">— SIGILCRAFT · A FORGING OF THE FIRST SPARK</div>
+    <div class="header-grid">
+      <h1><em>{{CUSTOMER_FIRST_NAME}}'s</em><br>Sigil Trinity</h1>
+      <div class="meta">
+        FORGED · {{FORGE_DATE}}<br>
+        ID · {{INITIALS}}{{BIRTH_MMDDYYYY}}<br>
+        {{BIRTH_LOCATION}}
+      </div>
+    </div>
+  </header>
+
+  <!-- OPENING -->
+  <section class="opening">
+    <p>You came to the forge carrying intentions without containers. Three loops you'd been running without locks. What you hold now — these three symbols — are the locks. The compression. The syntax your subconscious can finally read back to you.</p>
+    <div class="divider"></div>
+    <p>Each sigil is forged from your name, your moment, and the words you spoke into the intake. They are not generic. They are not interchangeable. They are yours.</p>
+  </section>
+
+  <!-- SIGIL ONE: INTENTION -->
+  <section class="sigil-section">
+    <div class="sigil-grid">
+      <div class="sigil-art">
+        <!-- KJP: Replace this SVG with the forged INTENTION sigil -->
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" stroke="#0B0B0C" stroke-width="2" fill="none">
+          <circle cx="100" cy="100" r="80"/>
+          <path d="M100 30 L100 170 M30 100 L170 100"/>
+          <circle cx="100" cy="100" r="30"/>
+          <path d="M70 70 L130 130 M130 70 L70 130"/>
+          <!-- Personalize this with letterforms from name -->
+        </svg>
+      </div>
+      <div class="sigil-info">
+        <div class="num">SIGIL · 01 / 03</div>
+        <h2><em>Intention.</em></h2>
+        <div class="intention-quote">"{{INTENTION_QUOTE}}"</div>
+        <div class="activation">
+          <strong>— ACTIVATION</strong>
+          Place this sigil where you'll see it when you wake. Speak the intention aloud once each morning. Don't ask. Don't bargain. State it as already true.
+        </div>
+        <div class="downloads">
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-intention.pdf" class="download-btn">↓ PDF</a>
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-intention.png" class="download-btn">↓ PNG</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGIL TWO: PROTECTION -->
+  <section class="sigil-section">
+    <div class="sigil-grid">
+      <div class="sigil-art">
+        <!-- KJP: Replace this SVG with the forged PROTECTION sigil -->
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" stroke="#0B0B0C" stroke-width="2" fill="none">
+          <polygon points="100,20 175,65 175,135 100,180 25,135 25,65"/>
+          <polygon points="100,50 150,75 150,125 100,150 50,125 50,75"/>
+          <circle cx="100" cy="100" r="15"/>
+        </svg>
+      </div>
+      <div class="sigil-info">
+        <div class="num">SIGIL · 02 / 03</div>
+        <h2><em>Protection.</em></h2>
+        <div class="intention-quote">"{{PROTECTION_QUOTE}}"</div>
+        <div class="activation">
+          <strong>— ACTIVATION</strong>
+          Carry this with you — phone wallpaper, wallet, threshold of your home. When the pattern you're guarding against approaches, look at it. The boundary holds because you forged it.
+        </div>
+        <div class="downloads">
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-protection.pdf" class="download-btn">↓ PDF</a>
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-protection.png" class="download-btn">↓ PNG</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGIL THREE: MANIFESTATION -->
+  <section class="sigil-section">
+    <div class="sigil-grid">
+      <div class="sigil-art">
+        <!-- KJP: Replace this SVG with the forged MANIFESTATION sigil -->
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" stroke="#0B0B0C" stroke-width="2" fill="none">
+          <path d="M100 20 Q150 70 100 100 Q50 130 100 180"/>
+          <circle cx="100" cy="20" r="6"/>
+          <circle cx="100" cy="180" r="6"/>
+          <path d="M50 60 Q100 100 150 140 M150 60 Q100 100 50 140"/>
+        </svg>
+      </div>
+      <div class="sigil-info">
+        <div class="num">SIGIL · 03 / 03</div>
+        <h2><em>Manifestation.</em></h2>
+        <div class="intention-quote">"{{MANIFESTATION_QUOTE}}"</div>
+        <div class="activation">
+          <strong>— ACTIVATION</strong>
+          This is the version of you on the other side. Look at this sigil whenever the doubt arrives. You're not becoming them. You're remembering them.
+        </div>
+        <div class="downloads">
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-manifestation.pdf" class="download-btn">↓ PDF</a>
+          <a href="./assets/{{INITIALS}}{{BIRTH_MMDDYYYY}}-manifestation.png" class="download-btn">↓ PNG</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RITUAL GUIDE -->
+  <section class="ritual">
+    <div class="mark">— THE ACTIVATION PROTOCOL</div>
+    <h2>How to <em>charge</em> your trinity.</h2>
+    <p>Sigils don't work because they're magic. They work because they create returns — your eye lands on them, your subconscious pattern-matches, your behavior shifts, reality follows. The protocol below is a 7-day initialization.</p>
+
+    <ol>
+      <li><strong>Day 1 — Print.</strong> Print all three on white paper. Hold each one. Don't analyze. Just hold.</li>
+      <li><strong>Day 2 — Place.</strong> Decide where each sigil lives. Intention near where you wake. Protection at a threshold. Manifestation near where you create.</li>
+      <li><strong>Day 3 — Speak.</strong> Read each intention aloud once. Not in a special voice. In your own voice. Out loud.</li>
+      <li><strong>Day 4 — Photograph.</strong> Take a photo of each. Save as your phone wallpaper, lock screen, anywhere your eye returns to.</li>
+      <li><strong>Day 5 — Notice.</strong> Spend the day watching for what's already shifting. Don't force interpretation. Just notice.</li>
+      <li><strong>Day 6 — Touch.</strong> Touch each sigil once with your dominant hand. This locks the kinesthetic memory. Not magic. Memory.</li>
+      <li><strong>Day 7 — Forget about them.</strong> Let them work. The sigils don't need your constant attention. They need to live in your peripheral vision while your life happens.</li>
+    </ol>
+
+    <p style="margin-top: 2rem;"><em>You'll know they're working when the patterns shift. Pay attention to coincidence. That's the system showing you it heard you.</em></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>FORGED WITH CARE BY <a href="https://thefirstspark.shop">THE FIRST SPARK</a></p>
+    <p style="margin-top: 1rem;">© KATE'S PAINT LLC · AKRON, OH · YOUR TRINITY IS YOURS FOREVER</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

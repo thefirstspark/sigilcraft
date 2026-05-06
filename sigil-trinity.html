@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigil Trinity — Sigilcraft | The First Spark</title>
+<meta name="description" content="Three sigils, forged for you. Intention. Protection. Manifestation. A consciousness technology offering from The First Spark.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Sigil Trinity — Three Sigils Forged For You">
+<meta property="og:description" content="Intention. Protection. Manifestation. A custom 3-sigil set as a printable PDF + high-res PNGs.">
+<meta property="og:url" content="https://sigilcraft.thefirstspark.shop/sigil-trinity.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://thefirstspark.shop/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sigil Trinity — Forged For You">
+<meta name="twitter:description" content="Three sigils. Intention. Protection. Manifestation.">
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FPHDDHSCWS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FPHDDHSCWS');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --gold-deep: #D4AF37;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --bone: #F5F1E8;
+    --ash: rgba(245, 241, 232, 0.6);
+    --grid: rgba(243, 178, 58, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--core-black);
+    color: var(--bone);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at top, rgba(107, 77, 242, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(255, 106, 61, 0.1) 0%, transparent 50%),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* NAV */
+  nav {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+  }
+
+  nav .brand {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  nav .back {
+    color: var(--ash);
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+
+  nav .back:hover { color: var(--ember); }
+
+  /* HERO */
+  .hero {
+    padding: 4rem 0 6rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-mark {
+    font-family: 'Cinzel', serif;
+    color: var(--ember);
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--ash);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  /* TRINITY VISUAL */
+  .trinity {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .sigil-circle {
+    width: 140px;
+    height: 140px;
+    border: 1px solid var(--gold-deep);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.4s ease;
+  }
+
+  .sigil-circle::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(243, 178, 58, 0.2);
+    border-radius: 50%;
+    animation: rotate 30s linear infinite;
+  }
+
+  .sigil-circle:nth-child(2)::before { animation-direction: reverse; animation-duration: 25s; }
+
+  .sigil-circle svg {
+    width: 60px;
+    height: 60px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .sigil-circle .label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+    margin-top: 0.5rem;
+  }
+
+  .sigil-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 106, 61, 0.3);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 0;
+  }
+
+  .section-mark {
+    font-family: 'Cinzel', serif;
+    color: var(--violet);
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  h2 em { color: var(--gold); font-style: italic; }
+
+  .body-text {
+    font-size: 1.05rem;
+    color: var(--bone);
+    max-width: 680px;
+    margin-bottom: 1.5rem;
+  }
+
+  .body-text + .body-text { margin-top: 1rem; }
+
+  /* THE PROBLEM */
+  .problem {
+    border-top: 1px solid rgba(243, 178, 58, 0.15);
+    border-bottom: 1px solid rgba(243, 178, 58, 0.15);
+  }
+
+  /* WHAT THIS IS */
+  .reframe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .reframe-card {
+    border: 1px solid rgba(243, 178, 58, 0.2);
+    padding: 2rem;
+    background: rgba(11, 11, 12, 0.5);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .reframe-card:hover {
+    border-color: var(--ember);
+    transform: translateY(-4px);
+  }
+
+  .reframe-card .num {
+    font-family: 'Cinzel', serif;
+    color: var(--ember);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+
+  .reframe-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: var(--gold);
+  }
+
+  .reframe-card p {
+    font-size: 0.92rem;
+    color: var(--ash);
+  }
+
+  /* WHAT YOU GET */
+  .deliverables {
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .deliverables li {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(243, 178, 58, 0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .deliverables .check {
+    color: var(--cyan);
+    font-family: 'Cinzel', serif;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .deliverables strong {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .deliverables span {
+    color: var(--ash);
+    font-size: 0.95rem;
+  }
+
+  /* INVESTMENT */
+  .investment {
+    text-align: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(107, 77, 242, 0.08) 50%, transparent 100%);
+  }
+
+  .price-block {
+    margin: 3rem 0;
+  }
+
+  .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .price .currency {
+    font-size: 2rem;
+    vertical-align: super;
+    color: var(--ember);
+  }
+
+  .price-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ash);
+    letter-spacing: 0.1em;
+    margin-top: 0.8rem;
+  }
+
+  .promo {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px dashed var(--cyan);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+  }
+
+  .promo strong { color: var(--bone); }
+
+  /* CTA */
+  .cta {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 1.4rem 3.5rem;
+    background: var(--ember);
+    color: var(--core-black);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 1px solid var(--gold);
+    transition: all 0.3s ease;
+  }
+
+  .cta:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 106, 61, 0.4);
+  }
+
+  .cta:hover::before { inset: -6px; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid rgba(243, 178, 58, 0.15);
+    padding: 1.5rem 0;
+    cursor: pointer;
+  }
+
+  .faq-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-q::after {
+    content: '+';
+    font-family: 'Cinzel', serif;
+    color: var(--ember);
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    color: var(--ash);
+    font-size: 0.95rem;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding-top: 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 0 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(243, 178, 58, 0.15);
+    margin-top: 4rem;
+    color: var(--ash);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  footer a { color: var(--ember); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .container { padding: 0 1.2rem; }
+    .hero { padding: 2rem 0 4rem; }
+    section { padding: 3rem 0; }
+    .trinity { gap: 1.5rem; }
+    .sigil-circle { width: 110px; height: 110px; }
+    .price { font-size: 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav>
+    <a href="/" class="brand">SIGILCRAFT</a>
+    <a href="https://thefirstspark.shop" class="back">← thefirstspark</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-mark">A FORGED OFFERING · THE FIRST SPARK</div>
+    <h1>Three sigils.<br><em>Forged for you.</em></h1>
+    <p class="hero-sub">Intention. Protection. Manifestation. A custom trinity of symbols, hand-forged from your name, your moment, and what you came here to do.</p>
+
+    <div class="trinity">
+      <div class="sigil-circle">
+        <svg viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="20"/>
+          <path d="M30 10 L30 50 M10 30 L50 30 M16 16 L44 44 M44 16 L16 44"/>
+          <circle cx="30" cy="30" r="6"/>
+        </svg>
+        <div class="label">INTENTION</div>
+      </div>
+      <div class="sigil-circle">
+        <svg viewBox="0 0 60 60">
+          <polygon points="30,8 52,22 52,42 30,52 8,42 8,22"/>
+          <polygon points="30,18 42,26 42,38 30,44 18,38 18,26"/>
+          <circle cx="30" cy="32" r="3"/>
+        </svg>
+        <div class="label">PROTECTION</div>
+      </div>
+      <div class="sigil-circle">
+        <svg viewBox="0 0 60 60">
+          <path d="M30 10 Q45 25 30 30 Q15 35 30 50"/>
+          <circle cx="30" cy="10" r="2"/>
+          <circle cx="30" cy="50" r="2"/>
+          <path d="M20 20 Q30 30 40 40 M40 20 Q30 30 20 40"/>
+        </svg>
+        <div class="label">MANIFESTATION</div>
+      </div>
+    </div>
+
+    <a href="https://whop.com/sparkverse-511c" class="cta" onclick="gtag('event', 'click_cta_hero', {'event_category':'sigil_trinity'});">CLAIM YOUR TRINITY</a>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="problem">
+    <div class="section-mark">— THE PATTERN</div>
+    <h2>You've been carrying intentions <em>without containers.</em></h2>
+    <p class="body-text">A wish you keep repeating. A boundary you keep meaning to set. A version of yourself you keep almost stepping into. The thoughts loop. Nothing locks.</p>
+    <p class="body-text">A sigil isn't superstition. It's a compression algorithm — your intention compressed into a symbol your subconscious can actually run. You're not asking the universe for something. You're rewriting the syntax of what you expect from it.</p>
+  </section>
+
+  <!-- WHAT THIS IS -->
+  <section>
+    <div class="section-mark">— THE OFFERING</div>
+    <h2>This isn't a generator. <em>It's a forging.</em></h2>
+    <p class="body-text">There are sigil generators online. They spit out something random. This is different. Each of your three sigils is forged personally — drawn from your name, your birth moment, and the intention you bring to the altar.</p>
+
+    <div class="reframe-grid">
+      <div class="reframe-card">
+        <div class="num">— 01</div>
+        <h3>Intention Sigil</h3>
+        <p>The thing you're calling in. Compressed into a symbol you can return to daily — phone wallpaper, journal, altar, tattoo blueprint.</p>
+      </div>
+      <div class="reframe-card">
+        <div class="num">— 02</div>
+        <h3>Protection Sigil</h3>
+        <p>The boundary you've been needing. A geometric ward against the patterns, people, or loops that drain you.</p>
+      </div>
+      <div class="reframe-card">
+        <div class="num">— 03</div>
+        <h3>Manifestation Sigil</h3>
+        <p>The version of you that's already on the other side. Forged from your soul coordinates, not generic templates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section>
+    <div class="section-mark">— THE DELIVERABLE</div>
+    <h2>What lands in your inbox.</h2>
+    <ul class="deliverables">
+      <li>
+        <span class="check">◆</span>
+        <div>
+          <strong>Three custom sigils</strong>
+          <span>Hand-forged. Personalized to your name, birth data, and stated intentions. Not template-generated.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check">◆</span>
+        <div>
+          <strong>Printable PDF set</strong>
+          <span>White background, high contrast — designed to print clean on any home printer. Frame them. Tape them above your desk. Burn them in ritual.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check">◆</span>
+        <div>
+          <strong>High-resolution PNGs</strong>
+          <span>Transparent backgrounds. Phone wallpaper ready. Tattoo-artist ready. Yours forever.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check">◆</span>
+        <div>
+          <strong>Your own vanity URL</strong>
+          <span>A private page at sigilcraft.thefirstspark.shop holding your trinity. Bookmark it. Return to it.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check">◆</span>
+        <div>
+          <strong>Activation guide</strong>
+          <span>A short ritual protocol — how to charge each sigil, when to use which, what to notice when it's working.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- INVESTMENT -->
+  <section class="investment">
+    <div class="section-mark">— THE EXCHANGE</div>
+    <div class="price-block">
+      <div class="price"><span class="currency">$</span>44</div>
+      <div class="price-note">ONE-TIME · DELIVERED WITHIN 72 HOURS</div>
+      <div class="promo">INTRO CODE: <strong>TRINITYSPARK</strong> · 30% OFF</div>
+    </div>
+    <a href="https://whop.com/sparkverse-511c" class="cta" onclick="gtag('event', 'click_cta_investment', {'event_category':'sigil_trinity'});">FORGE MY TRINITY</a>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="section-mark">— QUESTIONS</div>
+    <h2>What you might be wondering.</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I need to believe in magic for this to work?</div>
+      <div class="faq-a">No. Sigils are pattern recognition technology. Whether you frame it as magic, neuroscience, or programming — the mechanism is the same. You're encoding intention into a symbol your brain returns to. The framework is yours to choose.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How long does delivery take?</div>
+      <div class="faq-a">Within 72 hours of you completing the intake form. Each trinity is hand-forged, not auto-generated, so it takes the time it takes. You'll get an email when your vanity URL is live.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I use the sigils as tattoos?</div>
+      <div class="faq-a">Yes. The high-res PNGs are tattoo-artist-ready. Many people use the manifestation sigil as a tattoo blueprint. They're yours — do what serves you.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between this and a Soul Map?</div>
+      <div class="faq-a">A Soul Map is diagnostic — it shows you the terrain. A Sigil Trinity is prescriptive — it's the tools you forge to navigate the terrain. They work beautifully together, but each stands alone.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I don't know what my intention is yet?</div>
+      <div class="faq-a">The intake form has prompts to help you find it. Most people don't arrive with crystal-clear intentions — they arrive with a feeling. We work with the feeling.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>SIGILCRAFT · A WORKING FROM <a href="https://thefirstspark.shop">THE FIRST SPARK</a></p>
+    <p style="margin-top: 0.8rem; font-size: 0.7rem;">© KATE'S PAINT LLC · AKRON, OH</p>
+  </footer>
+</div>
+
+<script>
+  // FAQ toggle
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('open'));
+  });
+</script>
+
+</body>
+</html>

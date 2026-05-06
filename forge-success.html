@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge Your Trinity — Sigilcraft Intake</title>
+<meta name="robots" content="noindex">
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FPHDDHSCWS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FPHDDHSCWS');
+  gtag('event', 'purchase_complete', {'event_category':'sigil_trinity'});
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --core-black: #0B0B0C;
+    --ember: #FF6A3D;
+    --gold: #F3B23A;
+    --gold-deep: #D4AF37;
+    --violet: #6B4DF2;
+    --cyan: #26E4D8;
+    --bone: #F5F1E8;
+    --ash: rgba(245, 241, 232, 0.6);
+    --grid: rgba(243, 178, 58, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--core-black);
+    color: var(--bone);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at top, rgba(107, 77, 242, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(255, 106, 61, 0.08) 0%, transparent 50%),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+    padding: 2rem 1rem;
+  }
+
+  .wrapper { max-width: 720px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
+
+  .mark {
+    font-family: 'Cinzel', serif;
+    color: var(--ember);
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  h1 em { color: var(--gold); font-style: italic; }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ash);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* CONFIRMATION BAR */
+  .confirmed {
+    background: rgba(38, 228, 216, 0.08);
+    border: 1px solid var(--cyan);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--cyan);
+  }
+
+  .confirmed strong { color: var(--bone); }
+
+  /* FORM */
+  form {
+    background: rgba(11, 11, 12, 0.6);
+    border: 1px solid rgba(243, 178, 58, 0.2);
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .field {
+    margin-bottom: 2rem;
+  }
+
+  label {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.6rem;
+  }
+
+  label .req { color: var(--ember); }
+
+  .hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ash);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  input[type="text"], input[type="email"], input[type="date"], textarea, select {
+    width: 100%;
+    background: rgba(11, 11, 12, 0.8);
+    border: 1px solid rgba(243, 178, 58, 0.3);
+    color: var(--bone);
+    padding: 0.9rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--ember);
+    box-shadow: 0 0 0 2px rgba(255, 106, 61, 0.15);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .row { grid-template-columns: 1fr; }
+    form { padding: 1.5rem; }
+  }
+
+  /* SUBMIT */
+  button {
+    width: 100%;
+    background: var(--ember);
+    color: var(--core-black);
+    border: none;
+    padding: 1.4rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+
+  button:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* SUCCESS STATE */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .success.show { display: block; }
+
+  .success h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .success p {
+    color: var(--ash);
+    max-width: 480px;
+    margin: 0 auto 1rem;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--ash);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer a { color: var(--ember); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="mark">— STEP 02 OF 02 · INTAKE</div>
+    <h1>The forging <em>begins with you.</em></h1>
+    <p class="subtitle">Your payment is received. Now bring what only you can bring — your name, your moment, the intentions only you can name.</p>
+  </div>
+
+  <div class="confirmed" id="confirmed">
+    <strong>◆ PAYMENT CONFIRMED</strong> · Your trinity will be forged within 72 hours.
+  </div>
+
+  <form id="forge-form">
+    <input type="hidden" name="access_key" value="a9396dce-718b-4a34-a66d-b0e9ac5dc919">
+    <input type="hidden" name="subject" value="🔥 NEW SIGIL TRINITY ORDER — Forge Required">
+    <input type="hidden" name="from_name" value="Sigilcraft Intake">
+    <input type="hidden" name="redirect" value="https://sigilcraft.thefirstspark.shop/intake-received.html">
+    <input type="hidden" name="product" value="Sigil Trinity">
+
+    <!-- IDENTITY -->
+    <div class="field">
+      <label>FULL NAME <span class="req">◆</span></label>
+      <p class="hint">The name your soul answers to. Forging draws from the letters you carry.</p>
+      <input type="text" name="full_name" required>
+    </div>
+
+    <div class="field">
+      <label>EMAIL <span class="req">◆</span></label>
+      <p class="hint">Where your trinity will be delivered.</p>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>BIRTH DATE <span class="req">◆</span></label>
+        <p class="hint">Month, day, year.</p>
+        <input type="date" name="birth_date" required>
+      </div>
+      <div class="field">
+        <label>BIRTH TIME</label>
+        <p class="hint">If known. Optional.</p>
+        <input type="text" name="birth_time" placeholder="e.g. 3:42 PM">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>BIRTH LOCATION</label>
+      <p class="hint">City, state/country. Optional but deepens the forging.</p>
+      <input type="text" name="birth_location" placeholder="e.g. Akron, Ohio">
+    </div>
+
+    <!-- THE THREE INTENTIONS -->
+    <div class="field">
+      <label>SIGIL ONE · INTENTION <span class="req">◆</span></label>
+      <p class="hint">What are you calling in? Speak it plainly. "Money," "love," "clarity" — these are too small. Try: "Work that pays me to be the version of myself I'm becoming." Specifics forge sharper sigils.</p>
+      <textarea name="intention_sigil" required placeholder="What I am calling in..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>SIGIL TWO · PROTECTION <span class="req">◆</span></label>
+      <p class="hint">What are you guarding against? A draining person. A loop you keep falling into. A pattern you inherited and didn't choose. Name it.</p>
+      <textarea name="protection_sigil" required placeholder="What I am guarding against..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>SIGIL THREE · MANIFESTATION <span class="req">◆</span></label>
+      <p class="hint">Describe the version of you that's already on the other side of all this. Who are they? What do they do differently? Speak as if you're already them.</p>
+      <textarea name="manifestation_sigil" required placeholder="The me on the other side..."></textarea>
+    </div>
+
+    <!-- AESTHETIC -->
+    <div class="field">
+      <label>COLOR INSTINCT</label>
+      <p class="hint">When you imagine your sigils, what color comes up? Optional.</p>
+      <select name="color_preference">
+        <option value="forger_choice">Let the forger choose</option>
+        <option value="gold">Gold (sovereignty, manifestation)</option>
+        <option value="ember">Ember (action, fire, transformation)</option>
+        <option value="violet">Violet (intuition, mystery)</option>
+        <option value="cyan">Cyan (clarity, communication)</option>
+        <option value="black_white">Black & white (purity, classical)</option>
+      </select>
+    </div>
+
+    <!-- ANYTHING ELSE -->
+    <div class="field">
+      <label>ANYTHING ELSE THE FORGE SHOULD KNOW?</label>
+      <p class="hint">Symbols you're drawn to. Spirits you work with. Things to avoid. Optional.</p>
+      <textarea name="extra_notes" placeholder="(optional)"></textarea>
+    </div>
+
+    <button type="submit" id="submit-btn">SEND TO THE FORGE</button>
+  </form>
+
+  <div class="success" id="success-state">
+    <h2>The forge has received you.</h2>
+    <p>Your trinity is queued. Within 72 hours, you'll receive an email with your private vanity URL — a page that holds all three sigils, your printable PDFs, and your activation guide.</p>
+    <p style="margin-top: 2rem;">Until then: pay attention to what shows up. The forging has already started.</p>
+  </div>
+
+  <div class="footer">
+    <p>SIGILCRAFT · A FORGING OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></p>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById('forge-form');
+  const successState = document.getElementById('success-state');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'FORGING...';
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        gtag('event', 'intake_submitted', {'event_category':'sigil_trinity'});
+        form.style.display = 'none';
+        document.getElementById('confirmed').style.display = 'none';
+        successState.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'TRY AGAIN';
+      alert('Something interrupted the forge. Please try again or email kate@thefirstspark.shop directly.');
+    }
+  });
+</script>
+
+</body>
+</html>
