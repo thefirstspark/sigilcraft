@@ -341,10 +341,29 @@
 
     const formData = new FormData(form);
 
+    // Map form fields to webhook payload
+    const payload = {
+      name: formData.get('full_name'),
+      email: formData.get('email'),
+      dob: formData.get('birth_date'), // YYYY-MM-DD from date input
+      intention: formData.get('intention_sigil'),
+      protection: formData.get('protection_sigil'),
+      manifestation: formData.get('manifestation_sigil'),
+      birth_location: formData.get('birth_location'),
+    };
+
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // POST to webhook server (local dev or deployed)
+      const webhookUrl = window.location.hostname === 'localhost'
+        ? 'http://localhost:5000/generate'
+        : 'https://sigil-trinity-webhook.thefirstspark.sh/generate'; // TODO: update with actual deployed URL
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
@@ -356,12 +375,12 @@
         successState.classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error('Submission failed');
+        throw new Error(data.error || 'Submission failed');
       }
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'TRY AGAIN';
-      alert('Something interrupted the forge. Please try again or email kate@thefirstspark.shop directly.');
+      alert('Something interrupted the forge. Please try again or email kate@thefirstspark.shop directly.\n\nError: ' + err.message);
     }
   });
 </script>
