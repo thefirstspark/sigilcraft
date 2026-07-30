@@ -170,7 +170,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 (function () {
   const cfg = window.SF_CONFIG;
   document.getElementById('checkoutMonthly').href = cfg.WHOP_CHECKOUT_URL;
-  document.getElementById('checkoutAnnual').href = cfg.WHOP_CHECKOUT_URL;
+  // The Annual card only shows once its Whop plan link exists in config.js.
+  const annualBtn = document.getElementById('checkoutAnnual');
+  if (cfg.WHOP_CHECKOUT_URL_ANNUAL) {
+    annualBtn.href = cfg.WHOP_CHECKOUT_URL_ANNUAL;
+  } else {
+    annualBtn.closest('.price-card').style.display = 'none';
+  }
 
   const LS_KEY = 'sf_taste';
   function tasteState() {
