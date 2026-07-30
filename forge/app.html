@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Forge — Sigil Forge Members</title>
+<meta name="description" content="Member forge: unlimited sigils, charging rituals, your grimoire, and your monthly sigil.">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/forge.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K4TKPMG9');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4TKPMG9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<nav>
+  <div class="brand"><a href="index.html">◁ SIGIL FORGE</a> · MEMBERS</div>
+  <div class="links">
+    <span id="whoami" class="mono" style="font-size:0.6rem; color:var(--mute);"></span>
+    <a href="#" id="logoutLink" style="display:none;">Log out</a>
+  </div>
+</nav>
+
+<!-- ═══════════ LOGIN GATE ═══════════ -->
+<div class="gate" id="authView" style="display:none;">
+  <h2>⚡ Enter the Forge</h2>
+  <p>Use the same email you used at Whop checkout. We'll send a magic link — no password, no friction.</p>
+  <div class="label">◊ Your email</div>
+  <input type="email" id="emailInput" placeholder="you@somewhere.com" autocomplete="email">
+  <div style="margin-top:1.2rem;">
+    <button class="btn" id="sendLinkBtn" style="width:100%;">Send My Magic Link</button>
+  </div>
+  <div class="hint" id="authHint"></div>
+  <p style="margin-top:1.6rem; font-size:0.95rem;">Not a member yet? <a href="index.html#pricing">Join the Forge →</a></p>
+</div>
+
+<!-- ═══════════ LOCKED (logged in, no active sub) ═══════════ -->
+<div class="gate" id="lockedView" style="display:none;">
+  <h2>🔒 The Forge is sealed</h2>
+  <p>You're logged in, but we don't see an active Sigil Forge subscription on this email yet.</p>
+  <div style="display:flex; flex-direction:column; gap:0.7rem; margin-top:1.4rem;">
+    <a class="btn" id="lockedCheckout" href="#">⚡ Subscribe — $11/mo</a>
+    <button class="btn cyan" id="recheckBtn">I just subscribed — check again</button>
+  </div>
+  <div class="hint" id="lockedHint"></div>
+  <p style="margin-top:1.4rem; font-size:0.9rem; color:var(--mute);">Subscribed with a different email? Log out and log back in with your checkout email.</p>
+</div>
+
+<!-- ═══════════ MEMBER APP ═══════════ -->
+<div id="appView" style="display:none;">
+  <div class="tabs">
+    <button class="tab active" data-tab="forge">⚡ Forge</button>
+    <button class="tab" data-tab="charge">🔥 Charge</button>
+    <button class="tab" data-tab="grimoire">📖 Grimoire</button>
+    <button class="tab" data-tab="monthly">🌙 Monthly</button>
+  </div>
+
+  <!-- FORGE -->
+  <div class="panel active section" id="panel-forge">
+    <div class="kicker">◊ The Forge ◊</div>
+    <h2>Compile an intention</h2>
+    <div class="forge-grid" style="margin-top:2rem;">
+      <div>
+        <div class="label">◊ Your name (or callsign)</div>
+        <input type="text" id="fName" placeholder="Player One" maxlength="40">
+        <div class="label">◊ Your intention — present tense, as if already true</div>
+        <textarea id="fIntent" placeholder="e.g. 'I am paid to be myself'" maxlength="140"></textarea>
+        <div class="label">◊ Style</div>
+        <select id="fStyle">
+          <option value="spark">SPARK — the First Spark seal</option>
+          <option value="ley">LEY WHEEL — classic letter-path</option>
+          <option value="star">STAR — radial burst</option>
+        </select>
+        <div style="margin-top:1.4rem;">
+          <button class="btn" id="fForgeBtn" style="width:100%;">⚡ Forge</button>
+        </div>
+        <div class="hint" id="fHint"></div>
+      </div>
+      <div>
+        <div class="sigil-out empty" id="fOut">
+          <canvas id="fCanvas" width="600" height="600"></canvas>
+        </div>
+        <div class="distill-strip" id="fDistill"></div>
+        <div class="meta-line" id="fMeta"></div>
+        <div class="actions" id="fActions" style="display:none;">
+          <button class="btn small" id="fSaveBtn">Save to Grimoire</button>
+          <button class="btn ghost small" id="fDownloadBtn">Download PNG</button>
+          <button class="btn cyan small" id="fChargeBtn">Proceed to Charging →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARGE -->
+  <div class="panel section" id="panel-charge">
+    <div class="kicker">◊ The Charging Chamber ◊</div>
+    <h2>Give it voltage</h2>
+    <p class="lead">An uncharged sigil is a program that never runs. Below: the bespoke ritual the Forge assigned to your current sigil, then the six methods in full — learn them all, use what pulls you.</p>
+    <div id="bespokeRitual"></div>
+    <div style="margin-top:2.5rem;">
+      <div class="kicker">◊ The six methods ◊</div>
+      <div class="faq" id="methodsList"></div>
+    </div>
+    <div class="notice">After charging, the final step is always the same: <em>release</em>. Stop thinking about the intention.
+    Every time it surfaces, say “sent,” and return to your day. Gripping is the only way to break a sigil.</div>
+  </div>
+
+  <!-- GRIMOIRE -->
+  <div class="panel section" id="panel-grimoire">
+    <div class="kicker">◊ Your Grimoire ◊</div>
+    <h2>The book remembers</h2>
+    <p class="lead" id="grimoireCount"></p>
+    <div class="grimoire-grid" id="grimoireGrid"></div>
+  </div>
+
+  <!-- MONTHLY -->
+  <div class="panel section" id="panel-monthly">
+    <div class="kicker">◊ The Monthly Sigil ◊</div>
+    <h2 id="monthlyTitle"></h2>
+    <p class="lead">Forged from your identity and this month's current. It regenerates on the 1st — the same for you all month, different for every member.</p>
+    <div style="max-width:480px; margin:0 auto;">
+      <div class="sigil-out rendered">
+        <canvas id="mCanvas" width="600" height="600"></canvas>
+      </div>
+      <div class="meta-line" id="mMeta"></div>
+      <div class="actions">
+        <button class="btn ghost small" id="mDownloadBtn">Download PNG</button>
+      </div>
+      <div id="monthlyRitual"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>SIGIL FORGE · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div><a href="#" id="manageSub">Manage subscription</a></div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/sigil-engine.js"></script>
+<script>
+(function () {
+  const cfg = window.SF_CONFIG;
+  const db = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_PUBLISHABLE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+  });
+
+  document.getElementById('lockedCheckout').href = cfg.WHOP_CHECKOUT_URL;
+  document.getElementById('manageSub').href = cfg.WHOP_HUB_URL;
+
+  let session = null;
+  let profile = null;
+  let current = null; // last forged sigil {name,intention,style,seed,id,distilled,dbId}
+
+  const $ = (id) => document.getElementById(id);
+  const show = (id) => {
+    ['authView', 'lockedView', 'appView'].forEach((v) => { $(v).style.display = v === id ? 'block' : 'none'; });
+  };
+
+  /* ---------- auth ---------- */
+
+  async function loadProfile() {
+    const { data } = await db.from('sf_profiles').select('*').eq('id', session.user.id).maybeSingle();
+    profile = data || null;
+  }
+
+  async function route() {
+    if (!session) { show('authView'); $('logoutLink').style.display = 'none'; $('whoami').textContent = ''; return; }
+    $('logoutLink').style.display = 'inline';
+    $('whoami').textContent = (session.user.email || '').toUpperCase();
+    await loadProfile();
+    if (profile && profile.is_active) {
+      show('appView');
+      initApp();
+    } else {
+      show('lockedView');
+    }
+  }
+
+  db.auth.getSession().then(async ({ data }) => {
+    session = data.session || null;
+    await route();
+  });
+  db.auth.onAuthStateChange(async (_e, s) => {
+    if ((s && s.access_token) !== (session && session.access_token)) {
+      session = s;
+      await route();
+    }
+  });
+
+  $('sendLinkBtn').addEventListener('click', async () => {
+    const email = $('emailInput').value.trim().toLowerCase();
+    const hint = $('authHint');
+    if (!email || !email.includes('@')) { hint.textContent = 'ENTER A REAL EMAIL.'; return; }
+    $('sendLinkBtn').disabled = true;
+    const { error } = await db.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: location.origin + location.pathname },
+    });
+    if (error) {
+      hint.textContent = 'HMM: ' + error.message.toUpperCase();
+      $('sendLinkBtn').disabled = false;
+    } else {
+      hint.textContent = 'LINK SENT. CHECK YOUR INBOX (AND SPAM). THIS TAB WILL WAKE WHEN YOU CLICK IT.';
+    }
+  });
+
+  $('logoutLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await db.auth.signOut();
+    location.reload();
+  });
+
+  $('recheckBtn').addEventListener('click', async () => {
+    $('lockedHint').textContent = 'CHECKING THE LEDGER…';
+    await loadProfile();
+    if (profile && profile.is_active) { await route(); }
+    else { $('lockedHint').textContent = 'NOT YET. WHOP CAN TAKE A MINUTE — TRY AGAIN SHORTLY.'; }
+  });
+
+  /* ---------- tabs ---------- */
+
+  document.querySelectorAll('.tab').forEach((t) => {
+    t.addEventListener('click', () => switchTab(t.dataset.tab));
+  });
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('active', x.dataset.tab === name));
+    document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + name));
+    if (name === 'grimoire') renderGrimoire();
+    if (name === 'charge') renderBespoke();
+  }
+
+  /* ---------- forge ---------- */
+
+  let appInited = false;
+  function initApp() {
+    if (appInited) return;
+    appInited = true;
+    $('fName').value = localStorage.getItem('sf_name') || '';
+    renderMethods();
+    renderMonthly();
+  }
+
+  $('fForgeBtn').addEventListener('click', () => {
+    const name = $('fName').value.trim();
+    const intention = $('fIntent').value.trim();
+    if (!name || !intention) { $('fHint').textContent = 'NAME AND INTENTION REQUIRED.'; return; }
+    localStorage.setItem('sf_name', name);
+    const style = $('fStyle').value;
+    const res = SigilEngine.draw($('fCanvas'), { name, intention, style, watermark: false });
+    current = { name, intention, style, ...res, dbId: null };
+    $('fOut').classList.remove('empty'); $('fOut').classList.add('rendered');
+    $('fDistill').textContent = res.distilled.split('').join(' ');
+    $('fMeta').textContent = '◊ SIGIL::' + res.id + ' · ' + res.palette + ' · UNCHARGED ◊';
+    $('fActions').style.display = 'flex';
+    $('fHint').textContent = '';
+    $('fSaveBtn').disabled = false;
+    $('fSaveBtn').textContent = 'Save to Grimoire';
+  });
+
+  $('fSaveBtn').addEventListener('click', async () => {
+    if (!current) return;
+    $('fSaveBtn').disabled = true;
+    const { data, error } = await db.from('sf_sigils').insert({
+      user_id: session.user.id,
+      name: current.name,
+      intention: current.intention,
+      distilled: current.distilled,
+      seed: current.seed,
+      sigil_ref: current.id,
+      style: current.style,
+    }).select().single();
+    if (error) {
+      $('fHint').textContent = 'SAVE FAILED: ' + error.message.toUpperCase();
+      $('fSaveBtn').disabled = false;
+    } else {
+      current.dbId = data.id;
+      $('fSaveBtn').textContent = '✓ In Your Grimoire';
+      $('fHint').textContent = '';
+    }
+  });
+
+  $('fDownloadBtn').addEventListener('click', () => {
+    if (!current) return;
+    const link = document.createElement('a');
+    link.download = 'sigil-' + current.id + '.png';
+    link.href = $('fCanvas').toDataURL('image/png');
+    link.click();
+  });
+
+  $('fChargeBtn').addEventListener('click', () => switchTab('charge'));
+
+  /* ---------- charge ---------- */
+
+  function ritualHTML(seed, title) {
+    const r = SigilEngine.ritualFor(seed);
+    return `
+      <div class="ritual-box">
+        <div class="kicker" style="text-align:left; margin-bottom:0.5rem;">◊ ${title} ◊</div>
+        <h3>${r.method.name}</h3>
+        <div class="sub">${r.method.tool} · Best for: ${r.method.best}</div>
+        <ol>${r.method.steps.map((s) => '<li>' + s + '</li>').join('')}</ol>
+        <div class="sub" style="margin-top:1rem;">The Forge's prescription for this sigil: perform ${r.window},
+        repeat the breath or focus ${r.counts} times. Then release it and speak of it to no one.</div>
+      </div>`;
+  }
+
+  function renderBespoke() {
+    const box = $('bespokeRitual');
+    if (!current) {
+      box.innerHTML = '<p class="lead">Forge a sigil first — its ritual will appear here, assigned by its seed.</p>';
+      return;
+    }
+    box.innerHTML =
+      '<div class="meta-line" style="margin-bottom:0.4rem;">FOR SIGIL::' + current.id +
+      ' — “' + current.intention + '”</div>' +
+      ritualHTML(current.seed, 'Your bespoke ritual') +
+      (current.dbId
+        ? '<div class="actions"><button class="btn small" id="markCharged">✦ Mark as Charged</button></div>'
+        : '<div class="meta-line" style="margin-top:0.8rem;">SAVE TO GRIMOIRE TO TRACK ITS CHARGE.</div>');
+    const btn = $('markCharged');
+    if (btn) btn.addEventListener('click', async () => {
+      const r = SigilEngine.ritualFor(current.seed);
+      const { error } = await db.from('sf_sigils')
+        .update({ charged_at: new Date().toISOString(), charge_method: r.method.key })
+        .eq('id', current.dbId);
+      if (!error) { btn.textContent = '✦ Charged'; btn.disabled = true; }
+    });
+  }
+
+  function renderMethods() {
+    $('methodsList').innerHTML = SigilEngine.METHODS.map((m) => `
+      <details>
+        <summary>◊ ${m.name}</summary>
+        <p><em>${m.tool}</em><br>Best for: ${m.best}</p>
+        <p>${m.steps.map((s, i) => (i + 1) + '. ' + s).join('<br>')}</p>
+      </details>`).join('');
+  }
+
+  /* ---------- grimoire ---------- */
+
+  async function renderGrimoire() {
+    const grid = $('grimoireGrid');
+    const { data, error } = await db.from('sf_sigils')
+      .select('*').order('created_at', { ascending: false });
+    if (error) { grid.innerHTML = '<p class="lead">Could not open the book: ' + error.message + '</p>'; return; }
+    $('grimoireCount').textContent = data.length
+      ? data.length + ' sigil' + (data.length === 1 ? '' : 's') + ' recorded. ' +
+        data.filter((s) => s.charged_at).length + ' charged.'
+      : 'Empty for now. Forge something and save it — the book is waiting.';
+    grid.innerHTML = '';
+    data.forEach((row) => {
+      const card = document.createElement('div');
+      card.className = 'grimoire-card';
+      const cv = document.createElement('canvas');
+      cv.width = 300; cv.height = 300;
+      card.appendChild(cv);
+      const intent = document.createElement('div');
+      intent.className = 'intent';
+      intent.textContent = '“' + row.intention + '”';
+      card.appendChild(intent);
+      const badge = document.createElement('div');
+      badge.className = 'badge' + (row.charged_at ? '' : ' uncharged');
+      badge.textContent = row.charged_at ? '✦ CHARGED' : 'UNCHARGED';
+      card.appendChild(badge);
+      const acts = document.createElement('div');
+      acts.className = 'actions';
+      acts.innerHTML = '<button class="btn ghost small">Open</button><button class="btn ghost small">✕</button>';
+      card.appendChild(acts);
+
+      // re-render at grimoire scale
+      const big = document.createElement('canvas');
+      big.width = 600; big.height = 600;
+      SigilEngine.draw(big, { name: row.name, intention: row.intention, style: row.style, watermark: false });
+      cv.getContext('2d').drawImage(big, 0, 0, 300, 300);
+
+      const [openBtn, delBtn] = acts.querySelectorAll('button');
+      openBtn.addEventListener('click', () => {
+        current = {
+          name: row.name, intention: row.intention, style: row.style,
+          seed: Number(row.seed), id: row.sigil_ref, distilled: row.distilled, dbId: row.id,
+        };
+        $('fName').value = row.name;
+        $('fIntent').value = row.intention;
+        $('fStyle').value = row.style;
+        SigilEngine.draw($('fCanvas'), { name: row.name, intention: row.intention, style: row.style, watermark: false });
+        $('fOut').classList.remove('empty'); $('fOut').classList.add('rendered');
+        $('fDistill').textContent = (row.distilled || '').split('').join(' ');
+        $('fMeta').textContent = '◊ SIGIL::' + row.sigil_ref + (row.charged_at ? ' · ✦ CHARGED ◊' : ' · UNCHARGED ◊');
+        $('fActions').style.display = 'flex';
+        $('fSaveBtn').textContent = '✓ In Your Grimoire';
+        $('fSaveBtn').disabled = true;
+        switchTab('forge');
+      });
+      delBtn.addEventListener('click', async () => {
+        if (!confirm('Release this sigil from the book? (If it was charged, it has already done its work.)')) return;
+        await db.from('sf_sigils').delete().eq('id', row.id);
+        renderGrimoire();
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  /* ---------- monthly ---------- */
+
+  function renderMonthly() {
+    const now = new Date();
+    const theme = SigilEngine.monthlyTheme(now);
+    const monthName = now.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+    $('monthlyTitle').textContent = monthName + ' — ' + theme;
+    const email = session.user.email || 'wanderer';
+    const seed = SigilEngine.monthlySeed(email, now);
+    // draw via a synthetic identity so it re-renders identically all month
+    const res = SigilEngine.draw($('mCanvas'), {
+      name: email,
+      intention: theme + ' ' + monthName,
+      style: ['spark', 'ley', 'star'][seed % 3],
+      watermark: false,
+    });
+    $('mMeta').textContent = '◊ SIGIL::' + res.id + ' · FORGED FOR ' + email.toUpperCase() + ' · ' + monthName.toUpperCase() + ' ◊';
+    $('monthlyRitual').innerHTML = ritualHTML(res.seed, 'This month’s charging rite');
+    $('mDownloadBtn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'monthly-sigil-' + res.id + '.png';
+      link.href = $('mCanvas').toDataURL('image/png');
+      link.click();
+    });
+  }
+})();
+</script>
+</body>
+</html>

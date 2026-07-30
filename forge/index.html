@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigil Forge — Forge It. Charge It. Release It.</title>
+<meta name="description" content="A monthly sigil practice from the Sparkverse. Forge personalized sigils from your intentions, learn to charge them, and build your grimoire. $11/month.">
+<meta property="og:title" content="Sigil Forge — The Sparkverse">
+<meta property="og:description" content="Forge personalized sigils from your intentions. Learn to charge them. Build your grimoire.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/forge.css">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K4TKPMG9');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4TKPMG9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav>
+  <div class="brand"><a href="https://thefirstspark.shop">◁ THE FIRST SPARK</a> · SIGIL FORGE</div>
+  <div class="links">
+    <a href="#taste">Try It</a>
+    <a href="#pricing">Join</a>
+    <a href="app.html">Member Login</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1><span class="flame">⚡</span> Sigil Forge</h1>
+  <p class="sub">Forge it. Charge it. Release it. — Your intention, compiled into a glyph the universe can execute.</p>
+  <div style="margin-top:2.2rem; display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;">
+    <a class="btn" id="joinTop" href="#pricing">⚡ Begin — $11/mo</a>
+    <a class="btn cyan" href="#taste">Forge a Free Sigil</a>
+  </div>
+</div>
+
+<div class="section">
+  <div class="kicker">◊ What is a sigil ◊</div>
+  <h2>A compressed intention</h2>
+  <p class="lead">
+    A sigil is an old technology: you take a statement of intent, strip it to its
+    essential letters, and encode it into a symbol. Your conscious mind forgets the
+    words — your deeper mind keeps executing the code. The Forge does the encoding.
+    You do the charging. Reality handles the rest.
+  </p>
+  <div class="cards">
+    <div class="card"><span class="num">01 · FORGE</span>
+      <h3>Speak the intention</h3>
+      <p>Type what you're calling in. The Forge distills your words — vowels burned away, repeats collapsed — and compiles the remainder into a glyph that is cryptographically yours. Same words, same sigil, forever.</p>
+    </div>
+    <div class="card"><span class="num">02 · CHARGE</span>
+      <h3>Give it voltage</h3>
+      <p>An uncharged sigil is just ink. Every sigil you forge comes with its own charging ritual — breath, flame, moonlight, water, motion, or release — matched to the glyph and taught step by step.</p>
+    </div>
+    <div class="card"><span class="num">03 · RELEASE</span>
+      <h3>Let it run</h3>
+      <p>Charged sigils work in the background, like a process you don't watch. Your grimoire keeps the record: what you forged, when you charged it, and what came back.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="taste">
+  <div class="kicker">◊ The free taste ◊</div>
+  <h2>Forge one now</h2>
+  <p class="lead">Three free forges per day, Spark style only, watermarked and uncharged. Members get every style, the charging rituals, the grimoire, and a new personal sigil every month.</p>
+  <div class="forge-grid">
+    <div>
+      <div class="label">◊ Your name (or callsign)</div>
+      <input type="text" id="nameInput" placeholder="Player One" maxlength="40">
+      <div class="label">◊ Your intention</div>
+      <textarea id="intentionInput" placeholder="e.g. 'I trust my next move' or 'Money moves toward me'" maxlength="140"></textarea>
+      <div style="margin-top:1.2rem;">
+        <button class="btn" id="forgeBtn" style="width:100%;">⚡ Forge My Sigil</button>
+      </div>
+      <div class="hint" id="tasteHint"></div>
+    </div>
+    <div>
+      <div class="sigil-out empty" id="sigilOut">
+        <canvas id="sigilCanvas" width="600" height="600"></canvas>
+      </div>
+      <div class="distill-strip" id="distillStrip"></div>
+      <div class="meta-line" id="sigilMeta"></div>
+      <div class="actions" id="tasteActions" style="display:none;">
+        <button class="btn ghost small" id="downloadBtn">Download</button>
+        <a class="btn small" href="#pricing">Unlock the Charge →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="kicker">◊ Membership ◊</div>
+  <h2>What the Forge gives you</h2>
+  <div class="cards">
+    <div class="card"><h3>Unlimited forging</h3><p>Every style — Spark, Ley Wheel, and Star — clean, unwatermarked, downloadable at full resolution.</p></div>
+    <div class="card"><h3>The Charging Chamber</h3><p>Six complete charging rituals, taught properly, plus a bespoke ritual generated for every sigil you forge — its method, its count, its hour.</p></div>
+    <div class="card"><h3>Your Grimoire</h3><p>Every sigil saved to your private book. Track what's charged, what's released, and what answered.</p></div>
+    <div class="card"><h3>The Monthly Sigil</h3><p>On the 1st, a new sigil forged from your identity and the month's theme appears in your Forge. Twelve a year. Yours alone.</p></div>
+  </div>
+</div>
+
+<div class="section" id="pricing">
+  <div class="kicker">◊ The exchange ◊</div>
+  <h2>Join the Forge</h2>
+  <div class="price-grid">
+    <div class="price-card featured">
+      <div class="tier">Monthly</div>
+      <div class="price">$11</div>
+      <div class="per">per month · cancel anytime</div>
+      <ul>
+        <li>Unlimited sigils, all styles</li>
+        <li>Charging Chamber access</li>
+        <li>Private grimoire</li>
+        <li>Monthly personal sigil</li>
+      </ul>
+      <a class="btn" id="checkoutMonthly" href="#">⚡ Begin</a>
+    </div>
+    <div class="price-card">
+      <div class="tier">Annual</div>
+      <div class="price">$88</div>
+      <div class="per">per year · two months free</div>
+      <ul>
+        <li>Everything in Monthly</li>
+        <li>Locked-in rate</li>
+        <li>12 monthly sigils guaranteed</li>
+        <li>First access to new styles</li>
+      </ul>
+      <a class="btn cyan" id="checkoutAnnual" href="#">⚡ Commit</a>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem;">Payment runs through Whop — same checkout as everything in the Sparkverse.
+  After joining, log in here with the same email you used at checkout. That's the whole handshake.</p>
+</div>
+
+<div class="section faq" style="max-width:700px;">
+  <div class="kicker">◊ Questions ◊</div>
+  <h2>Asked and answered</h2>
+  <details><summary>Do I need to believe in magic for this to work?</summary>
+    <p>You need to believe in focus. A sigil is a focus technology — it compresses an intention so your attention can stop gripping it. Whether the mechanism is psychological, magical, or both is yours to decide. The practice works either way.</p></details>
+  <details><summary>What happens after I pay?</summary>
+    <p>Come back here and hit Member Login. Enter the same email you used at Whop checkout and we'll send you a magic link — no password to remember. Your access is already waiting.</p></details>
+  <details><summary>Can I cancel?</summary>
+    <p>Anytime, from your Whop account, in about three clicks. Your grimoire stays saved — if you return, it's exactly where you left it.</p></details>
+  <details><summary>Is my grimoire private?</summary>
+    <p>Completely. Your sigils are stored under your account and readable by you alone. We don't look at your intentions. That's between you and the field.</p></details>
+  <details><summary>Why do the same words always make the same sigil?</summary>
+    <p>The Forge is deterministic — your name and intention are hashed into a seed that drives every line of the glyph. It's not random decoration; it's your words, encoded. Change one letter and the whole sigil changes.</p></details>
+</div>
+
+<div class="section" style="text-align:center;">
+  <a class="btn" id="joinBottom" href="#pricing" style="font-size:0.85rem; padding:1.3rem 3rem;">⚡ ENTER THE FORGE — $11/MO</a>
+</div>
+
+<footer>
+  <div>SIGIL FORGE · A RITE OF <a href="https://thefirstspark.shop">THE FIRST SPARK</a></div>
+  <div>Reality is programmable. Consciousness is the code.</div>
+  <div><a href="https://sigilcraft.thefirstspark.shop">Sigilcraft Library</a> · <a href="app.html">Member Login</a></div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/sigil-engine.js"></script>
+<script>
+(function () {
+  const cfg = window.SF_CONFIG;
+  document.getElementById('checkoutMonthly').href = cfg.WHOP_CHECKOUT_URL;
+  document.getElementById('checkoutAnnual').href = cfg.WHOP_CHECKOUT_URL;
+
+  const LS_KEY = 'sf_taste';
+  function tasteState() {
+    try {
+      const s = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+      const today = new Date().toISOString().slice(0, 10);
+      if (s.day !== today) return { day: today, count: 0 };
+      return s;
+    } catch { return { day: '', count: 0 }; }
+  }
+
+  let current = null;
+
+  document.getElementById('forgeBtn').addEventListener('click', () => {
+    const name = document.getElementById('nameInput').value.trim();
+    const intent = document.getElementById('intentionInput').value.trim();
+    const hint = document.getElementById('tasteHint');
+    if (!name || !intent) {
+      hint.textContent = 'SPEAK YOUR NAME AND INTENTION FIRST.';
+      return;
+    }
+    const s = tasteState();
+    if (s.count >= 3) {
+      hint.textContent = 'THE FREE FORGE COOLS UNTIL TOMORROW. MEMBERS FORGE WITHOUT LIMIT.';
+      return;
+    }
+    s.count += 1;
+    localStorage.setItem(LS_KEY, JSON.stringify(s));
+
+    const canvas = document.getElementById('sigilCanvas');
+    current = SigilEngine.draw(canvas, { name, intention: intent, style: 'spark', watermark: true });
+    document.getElementById('sigilOut').classList.remove('empty');
+    document.getElementById('sigilOut').classList.add('rendered');
+    document.getElementById('distillStrip').textContent = current.distilled.split('').join(' ');
+    document.getElementById('sigilMeta').textContent =
+      '◊ SIGIL::' + current.id + ' · DISTILLED FROM YOUR WORDS · UNCHARGED ◊';
+    document.getElementById('tasteActions').style.display = 'flex';
+    hint.textContent = (3 - s.count) + ' FREE FORGE' + (3 - s.count === 1 ? '' : 'S') + ' LEFT TODAY.';
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    if (!current) return;
+    const link = document.createElement('a');
+    link.download = 'sigil-' + current.id + '.png';
+    link.href = document.getElementById('sigilCanvas').toDataURL('image/png');
+    link.click();
+  });
+})();
+</script>
+</body>
+</html>
