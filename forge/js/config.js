@@ -9,9 +9,8 @@ window.SF_CONFIG = {
   // Whop checkout for the Sigil Forge subscription ($11/mo plan, live).
   WHOP_CHECKOUT_URL: 'https://whop.com/checkout/plan_ujSn2WJvMazgD',
 
-  // Annual ($88/yr) checkout — paste the plan link here once the yearly
-  // plan exists in Whop and the Annual card on the landing page will appear.
-  WHOP_CHECKOUT_URL_ANNUAL: '',
+  // Annual ($88/yr) checkout, live.
+  WHOP_CHECKOUT_URL_ANNUAL: 'https://whop.com/checkout/plan_iaM8RhLJ5gaGb',
 
   // Where members manage/cancel their subscription
   WHOP_HUB_URL: 'https://whop.com/orders/',
