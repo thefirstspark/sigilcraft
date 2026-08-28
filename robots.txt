@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Post-purchase page, nothing useful in search results
+Disallow: /forge-success.html
+
+Sitemap: https://sigilcraft.thefirstspark.shop/sitemap.xml
